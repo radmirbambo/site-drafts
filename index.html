@@ -2,397 +2,586 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<title>Черновик вашего сайта</title>
-<meta name="description" content="Черновик сайта малого бизнеса по открытым данным карт">
+<meta name="color-scheme" content="light only">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#EDF0F1">
+<link rel="icon" href="data:,">
+<title>Черновик сайта</title>
+<meta name="description" content="Черновик сайта для небольшого автосервиса или ателье в Москве">
+<meta property="og:title" content="Черновик сайта">
+<meta property="og:description" content="Как мог бы выглядеть сайт вашей мастерской: адрес, часы, карта и запись по телефону">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Oswald:wght@500;600&family=Prata&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<!-- шрифты грузятся без блокировки: если Google Fonts тормозит, страница сразу показывается запасными шрифтами -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alice&family=Geologica:wght@400;500;600;700;800&family=Onest:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alice&family=Geologica:wght@400;500;600;700;800&family=Onest:wght@400;500;600&display=swap"></noscript>
 <style>
-/* Токены: автосервис (по умолчанию) и ателье (data-niche="atelier"), светлая и тёмная темы. */
+/*
+  Один шаблон, две ниши (data-niche на <html>).
+  Автосервис: серый бетон, графит, синий как у подъёмников на фото. Geologica, тяжёлое название, фото на всю ширину, углы почти прямые.
+  Ателье: светлый серо-сливовый фон, тёмная слива. Alice для заголовков, Onest для текста, фото вставкой, мягкие кнопки.
+  Отступы: 4 8 12 16 24 32 48 64. Кегли: 13 15 17 18 20 22, заголовки через clamp.
+*/
 :root{
-  --ground:#ECEDEA; --surface:#FFFFFF; --surface-2:#F5F6F3; --ink:#15181B; --muted:#5C6269; --line:#D6D9D4;
-  --accent:#F2B705; --on-accent:#15181B; --accent-text:#7A5A00; --accent-soft:#FBF0C8;
-  --plate:#1D4E9E; --on-plate:#FFFFFF; --ok:#1F7A4A; --ok-soft:#DCF1E4; --warn:#9A4B12; --warn-soft:#F8E6D6;
-  --tg:#2A7FC5; --tg-soft:#E4F0FA;
-  --display:"Oswald","Arial Narrow",system-ui,sans-serif; --display-case:uppercase; --display-track:.01em;
-  --sans:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
-  --rule:repeating-linear-gradient(-45deg,var(--accent) 0 10px,transparent 10px 20px);
+  --paper:#EDF0F1; --panel:#E1E6E9; --field:#F8F9FA; --ink:#172027; --ink-2:#35414B; --muted:#53606A; --line:#C6CED3; --line-strong:#76838D;
+  --accent:#1E4F9C; --accent-hover:#173F7F; --on-accent:#F4F7FB; --open:#1C6B45; --error:#A3361C;
+  --foot-bg:#172027; --foot-ink:#E1E7EB; --foot-muted:#A7B2BA; --chat:#D5DDE2; --bubble:#FBFCFC; --shadow:rgba(23,32,39,.28);
+  --font-display:"Geologica",Arial,sans-serif; --font-body:"Geologica",Arial,sans-serif;
+  --h1-size:clamp(3rem,11vw + .5rem,5.5rem); --h1-weight:800; --h1-track:-.035em; --h1-lh:1;
+  --h2-size:clamp(1.75rem,2vw + 1.2rem,2.625rem); --h2-weight:700; --h2-track:-.025em;
+  --what-weight:500; --addr-weight:600;
+  --r-btn:6px; --r-photo:2px; --r-field:6px; --r-chat:10px;
+  --map-filter:grayscale(1) contrast(1.04) brightness(1.04);
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --gutter:16px; --ease-out:cubic-bezier(.22,.61,.36,1);
 }
 :root[data-niche="atelier"]{
-  --ground:#F0F1F4; --surface:#FFFFFF; --surface-2:#F6F6F9; --ink:#1E1C24; --muted:#5F5B69; --line:#DCDBE3;
-  --accent:#B32D4B; --on-accent:#FFFFFF; --accent-text:#A02641; --accent-soft:#F6E1E6;
-  --display:"Prata",Georgia,"Times New Roman",serif; --display-case:none; --display-track:0;
-  --rule:repeating-linear-gradient(90deg,var(--muted) 0 1px,transparent 1px 10px);
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --ground:#111315; --surface:#1A1D21; --surface-2:#20242A; --ink:#E9EAE7; --muted:#9BA1A8; --line:#2E3339;
-    --accent:#F2C230; --on-accent:#15181B; --accent-text:#F2C230; --accent-soft:#3A3217;
-    --plate:#2D5FB3; --ok:#5CC98C; --ok-soft:#173326; --warn:#E3A067; --warn-soft:#3A2717; --tg:#6DB3EB; --tg-soft:#16283A;
-    color-scheme:dark;
-  }
-  :root[data-niche="atelier"]:not([data-theme="light"]){
-    --ground:#141318; --surface:#1D1B22; --surface-2:#24222A; --ink:#EDEAF1; --muted:#A3A0AC; --line:#34313C;
-    --accent:#E2697F; --on-accent:#1A0F13; --accent-text:#EE8A9C; --accent-soft:#3A1D25;
-  }
-}
-:root[data-theme="dark"]{
-  --ground:#111315; --surface:#1A1D21; --surface-2:#20242A; --ink:#E9EAE7; --muted:#9BA1A8; --line:#2E3339;
-  --accent:#F2C230; --on-accent:#15181B; --accent-text:#F2C230; --accent-soft:#3A3217;
-  --plate:#2D5FB3; --ok:#5CC98C; --ok-soft:#173326; --warn:#E3A067; --warn-soft:#3A2717; --tg:#6DB3EB; --tg-soft:#16283A;
-  color-scheme:dark;
-}
-:root[data-theme="dark"][data-niche="atelier"]{
-  --ground:#141318; --surface:#1D1B22; --surface-2:#24222A; --ink:#EDEAF1; --muted:#A3A0AC; --line:#34313C;
-  --accent:#E2697F; --on-accent:#1A0F13; --accent-text:#EE8A9C; --accent-soft:#3A1D25;
+  --paper:#F6F4F5; --panel:#ECE5E9; --field:#FDFBFC; --ink:#2B2128; --ink-2:#4A3D46; --muted:#6B5E66; --line:#DBD2D7; --line-strong:#8F808A;
+  --accent:#6A2C5B; --accent-hover:#55224A; --on-accent:#FBF4F8; --open:#2D6A4F; --error:#A3361C;
+  --foot-bg:#2B2128; --foot-ink:#F0E8EC; --foot-muted:#BBAEB6; --chat:#E3DAE0; --bubble:#FDFBFC; --shadow:rgba(43,33,40,.28);
+  --font-display:"Alice",Georgia,serif; --font-body:"Onest",Arial,sans-serif;
+  --h1-size:clamp(3rem,10vw + .9rem,6rem); --h1-weight:400; --h1-track:-.01em; --h1-lh:1.02;
+  --h2-size:clamp(2rem,2.2vw + 1.3rem,3rem); --h2-weight:400; --h2-track:0;
+  --what-weight:400; --addr-weight:500;
+  --r-btn:999px; --r-photo:4px; --r-field:10px; --r-chat:16px;
+  --map-filter:grayscale(.6) sepia(.12) brightness(1.03);
 }
 
-*{box-sizing:border-box}
-body{background:var(--ground);color:var(--ink);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
-@media (min-width:760px){body{padding-bottom:0}}
-a{color:var(--accent-text)}
-.wrap{max-width:1080px;margin:0 auto;padding-inline:16px}
-.display{font-family:var(--display);text-transform:var(--display-case);letter-spacing:var(--display-track);font-weight:600;line-height:1.08;text-wrap:balance}
-:root[data-niche="atelier"] .display{font-weight:400}
-.eyebrow{font:600 12.5px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.tag{display:inline-block;font:600 11px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--warn);background:var(--warn-soft);border-radius:4px;padding:2px 6px;vertical-align:middle}
-button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent-text);outline-offset:2px}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.55 var(--font-body);-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{display:block;max-width:100%}
+h1,h2,h3{margin:0;font-family:var(--font-display);font-style:normal;text-wrap:balance;overflow-wrap:anywhere;min-width:0}
+p,ul,ol,figure{margin:0}
+a{color:inherit;text-underline-offset:3px;text-decoration-thickness:1px}
+[hidden]{display:none !important}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.btn:focus-visible{outline-color:var(--ink)}
 
-/* Полоса черновика */
-.draft{background:var(--surface-2);border-bottom:1px solid var(--line);font-size:13.5px;color:var(--muted)}
-.draft .wrap{display:flex;gap:10px;align-items:baseline;padding-block:9px;flex-wrap:wrap}
-.draft b{color:var(--ink);font-weight:600}
-
-/* Шапка */
-header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-header.top .wrap{display:flex;align-items:center;gap:14px;padding-block:10px}
-.mark{flex:none;width:38px;height:38px;border-radius:9px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;font:600 19px var(--display);text-transform:var(--display-case)}
-.brand{min-width:0;display:grid;line-height:1.2}
-.brand b{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.brand span{font-size:12.5px;color:var(--muted)}
-nav.links{margin-left:auto;display:flex;gap:18px;font-size:14.5px}
-nav.links a{color:var(--ink);text-decoration:none}
-nav.links a:hover{text-decoration:underline}
-@media (max-width:760px){nav.links{display:none}}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 15px var(--sans);border-radius:10px;padding:11px 18px;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none;cursor:pointer;white-space:nowrap}
-.btn.acc{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
-.btn.sm{padding:8px 13px;font-size:14px}
-header.top .btn{margin-left:auto}
-@media (min-width:761px){header.top .btn{margin-left:0}}
+/* Пометка черновика: одна строка сверху */
+.draft{padding:var(--s2) var(--gutter);background:var(--panel);border-bottom:1px solid var(--line);color:var(--ink-2);font-size:.8125rem;line-height:1.45}
+.draft a{color:var(--ink);font-weight:600}
 
 /* Первый экран */
-.hero{padding-block:44px 36px}
-.hero .wrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:36px;align-items:start}
-@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:26px}.hero{padding-block:28px 24px}}
-.hero h1{font-size:clamp(38px,7vw,74px);margin:12px 0 16px}
-.hero .lead{font-size:18px;color:var(--muted);max-width:52ch;margin:0 0 24px}
-.cta{display:flex;gap:10px;flex-wrap:wrap}
-.strip{height:8px;background:var(--rule);opacity:.9;margin-top:34px;border-radius:2px}
-:root[data-niche="atelier"] .strip{height:20px;opacity:1;border-radius:3px;background:repeating-linear-gradient(90deg,var(--ink) 0 1.5px,transparent 1.5px 50px) 0 0/100% 100% no-repeat,repeating-linear-gradient(90deg,var(--muted) 0 1px,transparent 1px 10px) 0 0/100% 45% no-repeat,var(--accent-soft)}
+.hero{display:grid}
+.hero-text{padding:var(--s5) var(--gutter) var(--s6);min-width:0}
+.hero h1{font-size:var(--h1-size);font-weight:var(--h1-weight);letter-spacing:var(--h1-track);line-height:var(--h1-lh)}
+.hero-what{margin-top:var(--s3);font-size:1.25rem;line-height:1.3;font-weight:var(--what-weight)}
+.hero-addr{margin-top:var(--s1);color:var(--ink-2)}
+.hero-now{margin-top:var(--s4);display:flex;align-items:center;gap:var(--s2);font-size:1rem;color:var(--ink-2)}
+.hero-now::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--line-strong)}
+.hero-now.is-open::before{background:var(--open)}
+.hero-actions{margin-top:var(--s5);display:grid;gap:var(--s2)}
+.hero-photo{order:-1;aspect-ratio:3/2;background:var(--panel);overflow:hidden}
+.hero-photo img{width:100%;height:100%;object-fit:cover}
 
-.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;display:grid;gap:16px}
-.status{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14.5px;border-radius:999px;padding:6px 12px;width:max-content;max-width:100%}
-.status::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
-.status.open{color:var(--ok);background:var(--ok-soft)}
-.status.closed{color:var(--warn);background:var(--warn-soft)}
-.status.unknown{color:var(--muted);background:var(--surface-2)}
-.plate{display:inline-block;background:var(--plate);color:var(--on-plate);border-radius:6px;padding:8px 14px;box-shadow:inset 0 0 0 2px var(--plate),inset 0 0 0 3.5px var(--on-plate);font-weight:600;line-height:1.3;max-width:100%}
-.plate small{display:block;font-weight:500;opacity:.85;font-size:12.5px}
-.kv{display:grid;gap:4px}
-.kv .k{font-size:12.5px;color:var(--muted)}
-.kv .v{font:500 17px var(--mono);font-variant-numeric:tabular-nums;word-break:break-word}
-.row2{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s3);min-height:56px;padding:0 var(--s5);border:1.5px solid transparent;border-radius:var(--r-btn);font:600 1.0625rem/1.2 var(--font-body);text-decoration:none;white-space:nowrap;cursor:pointer;
+  transition:background-color .15s var(--ease-out),border-color .15s var(--ease-out)}
+.btn:active{transform:translateY(1px)}
+.btn-call{background:var(--accent);color:var(--on-accent)}
+.btn-call:hover{background:var(--accent-hover)}
+.btn-num{font-weight:400;font-variant-numeric:tabular-nums}
+.btn-line{background:transparent;color:var(--ink);border-color:var(--line-strong)}
+.btn-line:hover{border-color:var(--ink);background:var(--field)}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+@media (max-width:374px){.btn{padding:0 var(--s4);gap:var(--s2)}.btn-num{font-size:1rem}}
+
+/* Ателье: текст на льняной плашке, фото заходит на её нижний край */
+:root[data-niche="atelier"] .hero{background:linear-gradient(var(--panel),var(--panel)) top/100% calc(100% - 72px) no-repeat}
+:root[data-niche="atelier"] .hero-text{padding:var(--s7) var(--gutter) var(--s6)}
+:root[data-niche="atelier"] .hero-what{font-size:1.1875rem}
+:root[data-niche="atelier"] .hero-photo{order:1;margin:0 var(--gutter);aspect-ratio:4/3;border-radius:var(--r-photo)}
 
 /* Секции */
-section.block{padding-block:40px}
-section.block + section.block{border-top:1px solid var(--line)}
-.head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:20px}
-.head h2{font-size:clamp(26px,4vw,36px);margin:0}
-.head p{margin:0;color:var(--muted);font-size:14.5px;flex-basis:100%}
-.services{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;list-style:none;margin:0;padding:0}
-.services li{background:var(--surface);border:1px dashed var(--line);border-radius:12px;padding:14px 16px;display:flex;justify-content:space-between;gap:12px;align-items:baseline}
-.services li span{color:var(--muted);font-size:14px;white-space:nowrap}
-.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;list-style:none;margin:0;padding:0;counter-reset:s}
-@media (max-width:760px){.steps{grid-template-columns:1fr}}
-.steps li{counter-increment:s;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
-.steps li::before{content:counter(s);display:block;font:600 28px var(--display);color:var(--accent-text);margin-bottom:6px}
-.steps b{display:block;margin-bottom:4px}
-.steps p{margin:0;color:var(--muted);font-size:14.5px}
+.sec{padding:var(--s7) var(--gutter)}
+.sec h2{font-size:var(--h2-size);font-weight:var(--h2-weight);letter-spacing:var(--h2-track);line-height:1.08}
+.sec h3{font-family:var(--font-body);font-size:1.0625rem;font-weight:600;letter-spacing:0}
 
-.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
-@media (max-width:860px){.split{grid-template-columns:1fr}}
-table.hours{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
-table.hours td{padding:9px 12px;border-bottom:1px solid var(--line)}
-table.hours td:last-child{text-align:right;font-family:var(--mono);font-size:14.5px;white-space:nowrap}
-table.hours tr.today td{background:var(--accent-soft);font-weight:600}
-table.hours tr.today td:first-child{border-radius:8px 0 0 8px}
-table.hours tr.today td:last-child{border-radius:0 8px 8px 0}
-.muted{color:var(--muted)}
-.links-list{display:flex;gap:8px;flex-wrap:wrap}
+.services{display:grid;gap:var(--s6)}
+.svc-list{list-style:none;padding:0;margin-top:var(--s5);border-top:1px solid var(--line)}
+.svc-list li{padding:var(--s3) 0;border-bottom:1px solid var(--line);font-size:1.125rem;font-weight:500;line-height:1.35}
+:root[data-niche="atelier"] .svc-list li{font-weight:400}
+.svc-note{margin-top:var(--s4);color:var(--muted);max-width:52ch}
+.svc-photo{margin:0 calc(-1 * var(--gutter));aspect-ratio:4/3;overflow:hidden;background:var(--panel)}
+.svc-photo img{width:100%;height:100%;object-fit:cover}
+:root[data-niche="atelier"] .svc-photo{margin:0;border-radius:var(--r-photo)}
 
-/* Форма и превью уведомления */
-form.lead{display:grid;gap:12px}
-form.lead label{display:grid;gap:5px;font-size:14px;font-weight:500}
-form.lead input,form.lead select,form.lead textarea{font:16px var(--sans);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:11px 12px;width:100%}
-form.lead textarea{min-height:84px;resize:vertical}
-.hint{font-size:13px;color:var(--muted);margin:0}
-.tg{background:var(--tg-soft);border-radius:16px;padding:18px;display:grid;gap:10px}
-.tg .who{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--tg)}
-.tg .who i{width:30px;height:30px;border-radius:50%;background:var(--tg);display:grid;place-items:center;color:var(--surface);font-style:normal}
-.tg .who svg{width:15px;height:15px;fill:currentColor}
-.bubble{background:var(--surface);border-radius:4px 14px 14px 14px;padding:12px 14px;font-size:14.5px;line-height:1.55;white-space:pre-line;box-shadow:0 1px 0 var(--line)}
-.bubble time{display:block;text-align:right;font:12px var(--mono);color:var(--muted);margin-top:4px}
-.flash{animation:pop .5s ease-out}
-@keyframes pop{from{transform:translateY(6px);opacity:.4}to{transform:none;opacity:1}}
-@media (prefers-reduced-motion:reduce){.flash{animation:none}}
-.reviews{border:1px dashed var(--line);border-radius:14px;padding:22px;color:var(--muted);display:grid;gap:6px;background:var(--surface-2)}
-.reviews b{color:var(--ink)}
+.place{background:var(--panel)}
+.place-grid{display:grid;gap:var(--s6);margin-top:var(--s5);grid-template-areas:"addr" "map" "hours"}
+.place-addr{grid-area:addr}
+.place-hours{grid-area:hours}
+.addr{font-style:normal;font-size:1.375rem;line-height:1.3;font-weight:var(--addr-weight)}
+.addr span{display:block;margin-top:var(--s1);font-size:1rem;font-weight:400;color:var(--ink-2)}
+.route{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);margin-top:var(--s4)}
+.route a,.contacts a{color:var(--accent);font-weight:600}
+.route a:hover,.contacts a:hover{color:var(--accent-hover)}
+.map{grid-area:map;position:relative;z-index:0;height:300px;margin:0 calc(-1 * var(--gutter));background:var(--line)}
+.map-note{position:absolute;inset:0;display:grid;place-items:center;padding:var(--s5);text-align:center;color:var(--ink-2);font-size:.9375rem}
+.map .leaflet-container{font:inherit;background:var(--panel)}
+.map .leaflet-tile-pane{filter:var(--map-filter)}
+.map .leaflet-control-attribution{font-size:.6875rem}
+.pin span{display:block;width:26px;height:26px;background:var(--accent);border:3px solid var(--on-accent);border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 2px 6px var(--shadow)}
+.hours{width:100%;margin-top:var(--s2);border-collapse:collapse;font-variant-numeric:tabular-nums}
+.hours th,.hours td{padding:var(--s2) 0;border-bottom:1px solid var(--line);font-weight:400;text-align:left;vertical-align:baseline}
+.hours td{text-align:right}
+.hours tr.today th,.hours tr.today td{font-weight:700}
+.hours .today-mark{margin-left:var(--s2);font-weight:400;color:var(--muted);font-size:.9375rem}
+.hours-none{margin-top:var(--s2);color:var(--ink-2)}
+.contacts{margin-top:var(--s6);display:grid;gap:var(--s1)}
 
-footer.foot{padding-block:28px 40px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
-footer.foot .wrap{display:grid;gap:10px}
-footer.foot b{color:var(--ink)}
+.booking-grid{display:grid;gap:var(--s6)}
+.booking-intro p{margin-top:var(--s3);color:var(--ink-2);max-width:40ch}
+.lead{display:grid;gap:var(--s4)}
+.field{display:grid;gap:6px}
+.field label{font-size:.9375rem;font-weight:500}
+.field input,.field select,.field textarea{width:100%;min-height:52px;padding:13px 14px;font:inherit;font-size:1.0625rem;color:var(--ink);background:var(--field);border:1.5px solid var(--line-strong);border-radius:var(--r-field);transition:border-color .15s var(--ease-out)}
+.field textarea{min-height:104px;resize:vertical}
+.field input:hover,.field select:hover,.field textarea:hover{border-color:var(--ink-2)}
+.field input:focus-visible,.field select:focus-visible,.field textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.field [aria-invalid="true"]{border-color:var(--error)}
+.field-error{color:var(--error);font-size:.9375rem}
+.form-note{font-size:.9375rem;color:var(--muted)}
+.lead .btn{width:100%}
+.sent{display:grid;gap:var(--s3);max-width:560px;animation:appear .3s var(--ease-out)}
+.sent:focus{outline:none}
+.sent p{color:var(--ink-2)}
+.chat{margin-top:var(--s2);padding:var(--s4);background:var(--chat);border-radius:var(--r-chat)}
+.bubble{max-width:36ch;padding:var(--s3) var(--s4) var(--s2);background:var(--bubble);border-radius:4px 14px 14px 14px;font-size:.9375rem;line-height:1.5;white-space:pre-line;overflow-wrap:anywhere}
+.bubble b{display:block;margin-bottom:2px;color:var(--accent);font-size:.875rem}
+.bubble time{display:block;text-align:right;font-size:.75rem;color:var(--muted)}
+.sent .btn{justify-self:start;margin-top:var(--s2)}
+@keyframes appear{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-.bar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--surface);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.bar .btn{width:100%}
-@media (min-width:760px){.bar{display:none}}
+.foot{padding:var(--s7) var(--gutter) calc(var(--s7) + 72px);background:var(--foot-bg);color:var(--foot-ink)}
+.foot-name{font-family:var(--font-display);font-size:1.5rem;font-weight:var(--h2-weight);letter-spacing:var(--h2-track);line-height:1.2}
+.foot-lines{margin-top:var(--s2);display:grid;gap:2px;color:var(--foot-muted)}
+.foot-lines a{color:var(--foot-ink)}
+.credits{margin-top:var(--s6);max-width:75ch;font-size:.8125rem;line-height:1.5;color:var(--foot-muted)}
+.credits a{color:inherit}
+
+/* Кнопка звонка внизу экрана: появляется, когда верхняя уехала */
+.callbar{position:fixed;left:0;right:0;bottom:0;z-index:10;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--s2);padding:var(--s2) var(--gutter) calc(var(--s2) + env(safe-area-inset-bottom,0px));background:var(--paper);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .25s var(--ease-out)}
+.callbar.show{transform:none}
+.callbar .btn{min-height:50px;padding:0 var(--s4)}
+
+@media (min-width:900px){
+  :root{--gutter:max(32px, calc(50vw - 580px))}
+  .draft{text-align:center}
+  .hero{grid-template-columns:minmax(0,5fr) minmax(0,6fr);min-height:min(76vh,660px)}
+  .hero-text{align-self:center;padding:var(--s8) var(--s7) var(--s8) var(--gutter)}
+  .hero-what{font-size:1.375rem}
+  .hero-photo{order:0;aspect-ratio:auto;height:100%}
+  .hero-actions{display:flex;flex-wrap:wrap}
+  :root[data-niche="atelier"] .hero{grid-template-columns:minmax(0,6fr) minmax(0,5fr);min-height:0;padding-top:var(--s8);background-size:100% calc(100% - 120px)}
+  :root[data-niche="atelier"] .hero-text{align-self:center;padding:0 var(--s7) 120px var(--gutter)}
+  :root[data-niche="atelier"] .hero-photo{margin:0 var(--gutter) 0 0;aspect-ratio:4/5;height:auto;align-self:end}
+  .services{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--s8);align-items:start}
+  .svc-photo{margin:0;aspect-ratio:1/1}
+  .svc-list li{font-size:1.25rem}
+  :root[data-niche="atelier"] .services{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+  :root[data-niche="atelier"] .svc-photo{order:-1;aspect-ratio:4/3}
+  :root[data-niche="atelier"] .svc-list{display:grid;grid-template-columns:1fr 1fr;column-gap:var(--s6)}
+  :root[data-niche="atelier"] .svc-list li{font-size:1.125rem}
+  .place-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto 1fr;grid-template-areas:"addr map" "hours map";column-gap:var(--s8);row-gap:var(--s6)}
+  .map{height:auto;min-height:460px;margin:0;border-radius:var(--r-photo);overflow:hidden}
+  .booking-grid{grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:var(--s8)}
+  .lead,.sent{max-width:560px}
+  .lead .btn{width:auto;justify-self:start}
+  .foot{padding-bottom:var(--s7)}
+  .callbar{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .sent{animation:none}
+  .callbar{transition:none}
+  .btn,.field input,.field select,.field textarea{transition:none}
+}
 </style>
 </head>
 <body>
 
-
-<div class="draft" role="note"><div class="wrap">
-  <b id="draft-title">Черновик сайта</b>
-  <span id="draft-text">Адрес, телефон и часы работы взяты из открытых карт (OpenStreetMap). Блоки с пометкой «пример» заполняются вашими текстами, ценами и фото.</span>
-</div></div>
-
-<header class="top"><div class="wrap">
-  <div class="mark" id="mark" aria-hidden="true">М</div>
-  <div class="brand"><b id="brand-name">Ваша мастерская</b><span id="brand-kind">Москва</span></div>
-  <nav class="links" aria-label="Разделы">
-    <a href="#uslugi">Услуги</a><a href="#adres">Часы и адрес</a><a href="#zapis">Запись</a>
-  </nav>
-  <a class="btn acc sm" id="top-call" href="#zapis">Позвонить</a>
-</div></header>
+<p class="draft" id="draft">Черновик сайта. Адрес, телефон и часы работы подставляются из открытых карт, тексты и фото для примера. Собрал Радмир, Telegram <a href="https://t.me/radmirshaikh" target="_blank" rel="noopener">@radmirshaikh</a></p>
 
 <main>
-  <section class="hero"><div class="wrap">
+  <section class="hero" aria-labelledby="biz-name">
+    <div class="hero-text">
+      <h1 id="biz-name">Ваш автосервис</h1>
+      <p class="hero-what" id="hero-what">Автосервис в Москве</p>
+      <p class="hero-addr" id="hero-addr">Москва</p>
+      <p class="hero-now" id="hero-now" hidden></p>
+      <div class="hero-actions" id="hero-actions">
+        <a class="btn btn-call" id="call-main" href="#zapis"><span id="call-label">Записаться</span><span class="btn-num" id="call-num"></span></a>
+        <a class="btn btn-line" id="wa-main" href="#" target="_blank" rel="noopener" hidden>Написать в WhatsApp</a>
+      </div>
+    </div>
+    <figure class="hero-photo"><img id="hero-img" alt="" width="1400" height="934" fetchpriority="high" decoding="async"></figure>
+  </section>
+
+  <section class="sec services" id="uslugi" aria-labelledby="svc-title">
     <div>
-      <div class="eyebrow" id="hero-eyebrow">Москва</div>
-      <h1 class="display" id="hero-name">Ваша мастерская</h1>
-      <p class="lead" id="hero-lead">Запишитесь по телефону или оставьте заявку на сайте.</p>
-      <div class="cta">
-        <a class="btn acc" id="cta-call" href="#zapis">Позвонить</a>
-        <a class="btn" id="cta-wa" href="#" target="_blank" rel="noopener" hidden>Написать в WhatsApp</a>
-        <a class="btn" href="#zapis">Оставить заявку</a>
-      </div>
-      <div class="strip" aria-hidden="true"></div>
+      <h2 id="svc-title">Услуги</h2>
+      <ul class="svc-list" id="svc-list"></ul>
+      <p class="svc-note" id="svc-note">Стоимость зависит от объёма работ, уточняйте по телефону.</p>
     </div>
-    <aside class="card" aria-label="Коротко о нас">
-      <span class="status unknown" id="status">Часы работы уточняются</span>
-      <div><span class="plate" id="plate">Москва<small>адрес появится здесь</small></span></div>
-      <div class="kv" id="kv-phone"><span class="k">Телефон</span><span class="v" id="phone-main">+7 000 000-00-00</span></div>
-      <div class="kv" id="kv-hours"><span class="k">Сегодня</span><span class="v" id="today-hours">по телефону</span></div>
-    </aside>
-  </div></section>
+    <figure class="svc-photo"><img id="svc-img" alt="" width="1000" height="1250" loading="lazy" decoding="async"></figure>
+  </section>
 
-  <section class="block" id="uslugi"><div class="wrap">
-    <div class="head"><h2 class="display">Услуги</h2><span class="tag">пример</span>
-      <p>Список ниже показывает, как будут выглядеть услуги. На вашем сайте здесь будут ваши услуги и цены.</p></div>
-    <ul class="services" id="services"></ul>
-  </div></section>
-
-  <section class="block"><div class="wrap">
-    <div class="head"><h2 class="display">Как записаться</h2><span class="tag">пример</span></div>
-    <ol class="steps">
-      <li><b>Оставьте заявку или позвоните</b><p>Форма внизу страницы, телефон всегда на виду.</p></li>
-      <li><b>Договоримся о времени</b><p>Заявка сразу приходит мастеру в Telegram, он отвечает и подтверждает время.</p></li>
-      <li><b>Приходите по адресу</b><p>Адрес и часы работы есть на сайте, маршрут открывается в картах.</p></li>
-    </ol>
-  </div></section>
-
-  <section class="block" id="adres"><div class="wrap">
-    <div class="head"><h2 class="display">Часы и адрес</h2></div>
-    <div class="split">
-      <div class="card">
-        <table class="hours" id="hours" aria-label="Часы работы"><tbody></tbody></table>
-        <p class="hint" id="hours-hint" hidden>Часы работы на карте не указаны. На сайте их можно вписать вручную.</p>
+  <section class="sec place" id="adres" aria-labelledby="place-title">
+    <h2 id="place-title">Адрес и часы работы</h2>
+    <div class="place-grid">
+      <div class="place-addr">
+        <address class="addr" id="addr">Москва</address>
+        <p class="route" id="route"></p>
       </div>
-      <div class="card">
-        <div class="kv"><span class="k">Адрес</span><span class="v" id="addr-full" style="font-family:var(--sans);font-size:18px">Москва</span></div>
-        <div class="kv"><span class="k">Район</span><span id="addr-district">Москва</span></div>
-        <div class="kv" id="phones-block"><span class="k">Телефоны</span><span class="v" id="phones-all"></span></div>
-        <div class="links-list" id="map-links"></div>
+      <div class="map" id="map"><p class="map-note" id="map-note">Карта загружается</p></div>
+      <div class="place-hours">
+        <h3>Часы работы</h3>
+        <table class="hours" id="hours"><tbody></tbody></table>
+        <p class="hours-none" id="hours-none" hidden>Часы работы уточняйте по телефону.</p>
+        <p class="contacts" id="contacts"></p>
       </div>
     </div>
-  </div></section>
+  </section>
 
-  <section class="block" id="zapis"><div class="wrap">
-    <div class="head"><h2 class="display">Запись</h2>
-      <p>Попробуйте отправить заявку. Справа видно, как она придёт владельцу в Telegram.</p></div>
-    <div class="split">
-      <form class="lead card" id="form" novalidate>
-        <label for="f-name">Как к вам обращаться<input id="f-name" name="name" autocomplete="name" placeholder="Имя"></label>
-        <label for="f-phone">Телефон<input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7"></label>
-        <label for="f-service">Что нужно<select id="f-service" name="service"></select></label>
-        <label for="f-comment">Комментарий<textarea id="f-comment" name="comment" placeholder="Марка авто, удобное время, что случилось"></textarea></label>
-        <button class="btn acc" type="submit">Отправить заявку</button>
-        <p class="hint" id="form-hint">Это черновик, заявка никуда не отправляется и нигде не сохраняется.</p>
-      </form>
-      <div class="tg" aria-live="polite">
-        <div class="who"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21.4 3.6 2.9 10.8c-1 .4-1 1.8.1 2.1l4.6 1.4 1.8 5.6c.3.9 1.4 1.1 2 .4l2.6-2.8 4.6 3.4c.7.5 1.7.1 1.9-.8l3.1-15c.2-1-.8-1.8-1.7-1.5zM10 14.6l-.6 3.9-1.3-4.3 9.6-7.2L10 14.6z"/></svg></i><span>Бот заявок · Telegram</span><span class="tag" id="tg-tag">пример</span></div>
-        <div class="bubble" id="bubble"></div>
+  <section class="sec booking" id="zapis" aria-labelledby="book-title">
+    <div class="booking-grid">
+      <div class="booking-intro">
+        <h2 id="book-title">Записаться</h2>
+        <p id="book-intro">Оставьте телефон и коротко опишите, что нужно сделать. Мастер перезвонит и предложит время.</p>
+      </div>
+      <div>
+        <form class="lead" id="lead" novalidate>
+          <div class="field"><label for="f-name">Как к вам обращаться</label><input id="f-name" name="name" autocomplete="name"></div>
+          <div class="field"><label for="f-phone">Телефон</label><input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7" aria-describedby="f-phone-err"><p class="field-error" id="f-phone-err" hidden>Укажите телефон, чтобы мастер мог перезвонить.</p></div>
+          <div class="field"><label for="f-service">Что нужно</label><select id="f-service" name="service"></select></div>
+          <div class="field"><label for="f-comment">Комментарий</label><textarea id="f-comment" name="comment"></textarea></div>
+          <button class="btn btn-call" type="submit">Отправить заявку</button>
+          <p class="form-note">Заявка сразу придёт мастеру в Telegram.</p>
+        </form>
+        <div class="sent" id="sent" tabindex="-1" hidden>
+          <h3>В черновике заявка никуда не ушла</h3>
+          <p>На готовом сайте она сразу придёт владельцу в Telegram, вот так:</p>
+          <div class="chat"><div class="bubble" id="bubble"></div></div>
+          <button class="btn btn-line" type="button" id="again">Заполнить заново</button>
+        </div>
       </div>
     </div>
-  </div></section>
-
-  <section class="block"><div class="wrap">
-    <div class="reviews"><b>Отзывы клиентов</b><span>Сюда можно вывести ваши настоящие отзывы с Яндекс Карт или 2ГИС. В черновике отзывов нет.</span></div>
-  </div></section>
+  </section>
 </main>
 
-<footer class="foot"><div class="wrap">
-  <div><b id="foot-name">Ваша мастерская</b> · <span id="foot-addr">Москва</span></div>
-  <div>Черновик собрал Радмир по открытым данным OpenStreetMap. Связаться со мной можно в Telegram <a href="https://t.me/radmirshaikh" target="_blank" rel="noopener">@radmirshaikh</a>.</div>
-</div></footer>
+<footer class="foot">
+  <p class="foot-name" id="foot-name">Ваш автосервис</p>
+  <div class="foot-lines" id="foot-lines"></div>
+  <p class="credits" id="credits"></p>
+</footer>
 
-<div class="bar">
-  <a class="btn acc" id="bar-call" href="#zapis">Позвонить</a>
-  <a class="btn" href="#zapis">Заявка</a>
+<div class="callbar" id="callbar">
+  <a class="btn btn-call" id="call-bar" href="#zapis">Записаться</a>
+  <a class="btn btn-line" href="#zapis">Заявка</a>
 </div>
 
 <script>
 (function(){
+'use strict';
 const DATA = /*LEADS*/{"leads": {"skyline-racing-club": {"name": "Skyline Racing Club", "niche": "auto", "kind": "car", "kind_title": "Автосервис", "address": "Ленинградское шоссе, 304", "district": "Молжаниновский район", "phones": ["+7 901 519-89-40"], "whatsapp": "https://wa.me/79015198940", "socials": {"VK": "https://vk.com/id361213259"}, "hours_text": "Пн–Ср 9:00–18:00, Чт выходной, Пт–Сб 9:00–18:00, Вс выходной", "hours_table": [[["09:00", "18:00"]], [["09:00", "18:00"]], [["09:00", "18:00"]], [], [["09:00", "18:00"]], [["09:00", "18:00"]], []], "lat": 55.9453019, "lon": 37.3608665, "osm_url": "https://www.openstreetmap.org/node/6636307985"}, "miks": {"name": "Микс", "niche": "auto", "kind": "car", "kind_title": "Автосервис", "address": "Южнопортовая улица, 36/6", "district": "район Печатники", "phones": ["+7 967 222-11-11"], "whatsapp": "https://wa.me/79672221111", "socials": {"Instagram": "https://instagram.com/service.mix"}, "hours_text": "Ежедневно 9:00–23:00", "hours_table": [[["09:00", "23:00"]], [["09:00", "23:00"]], [["09:00", "23:00"]], [["09:00", "23:00"]], [["09:00", "23:00"]], [["09:00", "23:00"]], [["09:00", "23:00"]]], "lat": 55.7024875, "lon": 37.7076587, "osm_url": "https://www.openstreetmap.org/node/6726629586"}, "automotocitizen": {"name": "Automotocitizen", "niche": "auto", "kind": "car", "kind_title": "Автосервис", "address": "6-й Загородный проезд", "district": "район Котловка", "phones": ["+7 985 176-13-60"], "whatsapp": "https://wa.me/79851761360", "socials": {}, "hours_text": "Пн–Сб 10:00–21:00, Вс выходной", "hours_table": [[["10:00", "21:00"]], [["10:00", "21:00"]], [["10:00", "21:00"]], [["10:00", "21:00"]], [["10:00", "21:00"]], [["10:00", "21:00"]], []], "lat": 55.6845793, "lon": 37.6099898, "osm_url": "https://www.openstreetmap.org/node/8065663363"}, "codeecu": {"name": "CodeECU", "niche": "auto", "kind": "tuning", "kind_title": "Чип-тюнинг", "address": "Смольная улица, вл6", "district": "Головинский район", "phones": ["+7 995 898-33-23"], "whatsapp": "https://wa.me/79958983323", "socials": {}, "hours_text": "Пн–Сб 10:00–19:00, Вс выходной", "hours_table": [[["10:00", "19:00"]], [["10:00", "19:00"]], [["10:00", "19:00"]], [["10:00", "19:00"]], [["10:00", "19:00"]], [["10:00", "19:00"]], []], "lat": 55.8464069, "lon": 37.5003881, "osm_url": "https://www.openstreetmap.org/node/9875032317"}, "tsar-gory": {"name": "Царь Горы", "niche": "auto", "kind": "car", "kind_title": "Автосервис", "address": "Поклонная улица, 11 с2", "district": "район Дорогомилово", "phones": ["+7 495 208-69-51"], "whatsapp": "", "socials": {}, "hours_text": "Ежедневно 10:00–20:00", "hours_table": [[["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]]], "lat": 55.7340977, "lon": 37.5246741, "osm_url": "https://www.openstreetmap.org/node/6806617322"}, "polyarnaya-zvezda": {"name": "Полярная звезда", "niche": "auto", "kind": "car", "kind_title": "Автосервис", "address": "Полярный проезд, 18", "district": "район Северное Медведково", "phones": ["+7 495 766-76-77"], "whatsapp": "", "socials": {"DRIVE2": "https://www.drive2.ru/o/Polar-Star"}, "hours_text": "", "hours_table": null, "lat": 55.8929856, "lon": 37.6406555, "osm_url": "https://www.openstreetmap.org/node/11934047384"}, "solntseklesh": {"name": "Солнцеклёш", "niche": "atelier", "kind": "atelier", "kind_title": "Ателье", "address": "улица Самуила Маршака", "district": "район Внуково", "phones": ["+7 967 238-48-83"], "whatsapp": "https://wa.me/79672384883", "socials": {}, "hours_text": "Пн выходной, Вт–Пт 10:00–21:00, Сб–Вс 10:00–18:00", "hours_table": [[], [["10:00", "21:00"]], [["10:00", "21:00"]], [["10:00", "21:00"]], [["10:00", "21:00"]], [["10:00", "18:00"]], [["10:00", "18:00"]]], "lat": 55.6365956, "lon": 37.3259912, "osm_url": "https://www.openstreetmap.org/node/4807309094"}, "avangard-service": {"name": "Avangard service", "niche": "auto", "kind": "car", "kind_title": "Автосервис", "address": "Каширское шоссе, АЦ «Москва-Тянья»", "district": "район Орехово-Борисово Северное", "phones": ["+7 495 740-80-38", "+7 926 641-00-60"], "whatsapp": "https://wa.me/79266410060", "socials": {}, "hours_text": "Ежедневно 9:00–21:00", "hours_table": [[["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]]], "lat": 55.6166288, "lon": 37.7170799, "osm_url": "https://www.openstreetmap.org/node/8521191325"}, "avto-kd": {"name": "Авто КД", "niche": "auto", "kind": "car", "kind_title": "Автосервис", "address": "Ташкентская улица, 28 с1", "district": "район Выхино-Жулебино", "phones": ["+7 925 744-69-86"], "whatsapp": "https://wa.me/79257446986", "socials": {}, "hours_text": "Пн–Сб 10:00–20:00, Вс выходной", "hours_table": [[["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], []], "lat": 55.6993374, "lon": 37.8057706, "osm_url": "https://www.openstreetmap.org/node/5463687929"}, "ayron-dyuk": {"name": "Айрон Дьюк", "niche": "auto", "kind": "car", "kind_title": "Автосервис", "address": "Вербная улица, 2", "district": "район Метрогородок", "phones": ["+7 977 251-25-52"], "whatsapp": "https://wa.me/79772512552", "socials": {}, "hours_text": "Ежедневно 10:00–20:00", "hours_table": [[["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]]], "lat": 55.8245809, "lon": 37.7727456, "osm_url": "https://www.openstreetmap.org/node/5469430422"}, "black-morgan-workshop": {"name": "Black Morgan Workshop", "niche": "auto", "kind": "car", "kind_title": "Автосервис", "address": "Походный проезд, 24", "district": "район Южное Тушино", "phones": ["+7 965 244-07-76"], "whatsapp": "https://wa.me/79652440776", "socials": {}, "hours_text": "Ежедневно 10:00–20:00", "hours_table": [[["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]]], "lat": 55.8421309, "lon": 37.4233218, "osm_url": "https://www.openstreetmap.org/node/5839946685"}, "shino-24": {"name": "Шино 24", "niche": "auto", "kind": "tyres", "kind_title": "Шиномонтаж", "address": "Полярный проезд, 7 с1", "district": "район Северное Медведково", "phones": ["+7 925 663-65-99"], "whatsapp": "https://wa.me/79256636599", "socials": {}, "hours_text": "Круглосуточно", "hours_table": [[["00:00", "24:00"]], [["00:00", "24:00"]], [["00:00", "24:00"]], [["00:00", "24:00"]], [["00:00", "24:00"]], [["00:00", "24:00"]], [["00:00", "24:00"]]], "lat": 55.8912706, "lon": 37.633213, "osm_url": "https://www.openstreetmap.org/node/11933947534"}, "delars": {"name": "DeLars", "niche": "auto", "kind": "car", "kind_title": "Автосервис", "address": "улица Буракова, 8", "district": "район Соколиная Гора", "phones": ["+7 968 558-75-55"], "whatsapp": "https://wa.me/79685587555", "socials": {"VK": "https://vk.com/delarsgroup"}, "hours_text": "Ежедневно 9:00–21:00", "hours_table": [[["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]]], "lat": 55.762263, "lon": 37.7281317, "osm_url": "https://www.openstreetmap.org/node/1462550585"}, "russkiy-shinomontazh": {"name": "Русский шиномонтаж", "niche": "auto", "kind": "tyres", "kind_title": "Шиномонтаж", "address": "Большой Коптевский проезд", "district": "район Аэропорт", "phones": ["+7 909 637-32-44", "+7 925 731-84-21"], "whatsapp": "https://wa.me/79096373244", "socials": {}, "hours_text": "Ежедневно 10:00–23:00", "hours_table": [[["10:00", "23:00"]], [["10:00", "23:00"]], [["10:00", "23:00"]], [["10:00", "23:00"]], [["10:00", "23:00"]], [["10:00", "23:00"]], [["10:00", "23:00"]]], "lat": 55.8117639, "lon": 37.5378419, "osm_url": "https://www.openstreetmap.org/node/5307200696"}, "avtoban": {"name": "Автобан", "niche": "auto", "kind": "car", "kind_title": "Автосервис", "address": "Люблинская улица, 70", "district": "район Люблино", "phones": ["+7 903 614-55-11"], "whatsapp": "https://wa.me/79036145511", "socials": {}, "hours_text": "Ежедневно 9:00–21:00", "hours_table": [[["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]]], "lat": 55.6713606, "lon": 37.7387613, "osm_url": "https://www.openstreetmap.org/node/9661004795"}, "arb-servis": {"name": "Арб-сервис", "niche": "auto", "kind": "car", "kind_title": "Автосервис", "address": "улица Авиаторов, 8 к1А", "district": "район Солнцево", "phones": ["+7 999 808-07-87"], "whatsapp": "https://wa.me/79998080787", "socials": {}, "hours_text": "", "hours_table": null, "lat": 55.647534, "lon": 37.3968936, "osm_url": "https://www.openstreetmap.org/way/1266114469"}, "alisa-1": {"name": "Алиса №1", "niche": "atelier", "kind": "atelier", "kind_title": "Ателье", "address": "улица Самеда Вургуна, 5", "district": "район Аэропорт", "phones": ["+7 966 344-99-38"], "whatsapp": "https://wa.me/79663449938", "socials": {}, "hours_text": "Ежедневно 10:00–20:00", "hours_table": [[["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]]], "lat": 55.8076131, "lon": 37.5263993, "osm_url": "https://www.openstreetmap.org/node/5031115689"}, "molniya": {"name": "Молния", "niche": "atelier", "kind": "atelier", "kind_title": "Ателье", "address": "улица Миклухо-Маклая, 36А", "district": "район Коньково", "phones": ["+7 925 339-85-51"], "whatsapp": "https://wa.me/79253398551", "socials": {}, "hours_text": "Ежедневно 10:00–21:00", "hours_table": [[["10:00", "21:00"]], [["10:00", "21:00"]], [["10:00", "21:00"]], [["10:00", "21:00"]], [["10:00", "21:00"]], [["10:00", "21:00"]], [["10:00", "21:00"]]], "lat": 55.6400908, "lon": 37.5329531, "osm_url": "https://www.openstreetmap.org/node/8868817217"}, "siluet": {"name": "Силуэт", "niche": "atelier", "kind": "atelier", "kind_title": "Ателье", "address": "улица Бориса Пастернака, 43", "district": "район Внуково", "phones": ["+7 925 349-42-72"], "whatsapp": "https://wa.me/79253494272", "socials": {}, "hours_text": "Ежедневно 9:00–20:00", "hours_table": [[["09:00", "20:00"]], [["09:00", "20:00"]], [["09:00", "20:00"]], [["09:00", "20:00"]], [["09:00", "20:00"]], [["09:00", "20:00"]], [["09:00", "20:00"]]], "lat": 55.6381115, "lon": 37.3068439, "osm_url": "https://www.openstreetmap.org/node/10017892022"}, "zolushka": {"name": "Золушка", "niche": "atelier", "kind": "atelier", "kind_title": "Ателье", "address": "улица Маршала Голованова", "district": "район Марьино", "phones": ["+7 926 052-31-94", "+7 925 035-85-97"], "whatsapp": "https://wa.me/79260523194", "socials": {}, "hours_text": "Пн–Вт 10:00–14:00, 15:00–20:00, Ср выходной, Чт–Вс 10:00–14:00, 15:00–20:00", "hours_table": [[["10:00", "14:00"], ["15:00", "20:00"]], [["10:00", "14:00"], ["15:00", "20:00"]], [], [["10:00", "14:00"], ["15:00", "20:00"]], [["10:00", "14:00"], ["15:00", "20:00"]], [["10:00", "14:00"], ["15:00", "20:00"]], [["10:00", "14:00"], ["15:00", "20:00"]]], "lat": 55.6496984, "lon": 37.7299928, "osm_url": "https://www.openstreetmap.org/node/11687920870"}, "lyusi": {"name": "Люси", "niche": "atelier", "kind": "atelier", "kind_title": "Ателье", "address": "Большая Филёвская улица, 35", "district": "район Филёвский Парк", "phones": ["+7 915 409-22-24", "+7 909 951-81-53", "+7 495 298-55-57"], "whatsapp": "https://wa.me/79154092224", "socials": {}, "hours_text": "Пн–Пт 10:00–20:00, Сб 11:00–19:00, Вс выходной", "hours_table": [[["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["11:00", "19:00"]], []], "lat": 55.7431157, "lon": 37.4816552, "osm_url": "https://www.openstreetmap.org/node/12510935101"}, "bulavochka": {"name": "Булавочка", "niche": "atelier", "kind": "atelier", "kind_title": "Ателье", "address": "Сокольническая площадь, 4 к1-2", "district": "район Сокольники", "phones": ["+7 968 666-22-11"], "whatsapp": "https://wa.me/79686662211", "socials": {}, "hours_text": "Ежедневно 10:00–20:00", "hours_table": [[["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]], [["10:00", "20:00"]]], "lat": 55.7903994, "lon": 37.6766293, "osm_url": "https://www.openstreetmap.org/node/12950342535"}, "danceart": {"name": "DanceArt", "niche": "atelier", "kind": "dance", "kind_title": "Ателье танцевальных костюмов", "address": "переулок Васнецова, 9 с1", "district": "Мещанский", "phones": [], "whatsapp": "", "socials": {"VK": "https://vk.com/public182637900", "Facebook": "https://www.facebook.com/DanceArtDA/"}, "hours_text": "", "hours_table": null, "lat": 55.776223, "lon": 37.6251993, "osm_url": "https://www.openstreetmap.org/node/12120088125"}, "evroaziya": {"name": "Автотехцентр ЕВРОАЗИЯ", "niche": "auto", "kind": "car", "kind_title": "Автосервис", "address": "Осенняя улица, 23", "district": "район Крылатское", "phones": ["+7 495 504-61-05", "+7 495 504-61-15"], "whatsapp": "", "socials": {}, "hours_text": "Ежедневно 9:00–21:00", "hours_table": [[["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]]], "lat": 55.7666915, "lon": 37.4037351, "osm_url": "https://www.openstreetmap.org/node/3836310396"}, "avto-ass": {"name": "Авто-АСС", "niche": "auto", "kind": "alarm", "kind_title": "Автосигнализации", "address": "Саратовская улица, 19 с5", "district": "район Текстильщики", "phones": ["+7 499 173-58-09"], "whatsapp": "", "socials": {}, "hours_text": "", "hours_table": null, "lat": 55.7152749, "lon": 37.7372241, "osm_url": "https://www.openstreetmap.org/way/39524494"}, "5-zvezd": {"name": "5 звёзд", "niche": "auto", "kind": "car", "kind_title": "Автосервис", "address": "проезд № 4801, 8 с11", "district": "район Матушкино, Зеленоград", "phones": ["+7 499 983-01-13"], "whatsapp": "", "socials": {}, "hours_text": "", "hours_table": null, "lat": 56.0153199, "lon": 37.2012638, "osm_url": "https://www.openstreetmap.org/way/55058557"}, "kabluchok": {"name": "Каблучок", "niche": "atelier", "kind": "shoe", "kind_title": "Ремонт обуви", "address": "Ленинский проспект, 52", "district": "Гагаринский район", "phones": ["+7 499 137-15-10"], "whatsapp": "", "socials": {}, "hours_text": "Пн–Пт 9:00–20:00, Сб 10:00–18:00, Вс выходной", "hours_table": [[["09:00", "20:00"]], [["09:00", "20:00"]], [["09:00", "20:00"]], [["09:00", "20:00"]], [["09:00", "20:00"]], [["10:00", "18:00"]], []], "lat": 55.6986373, "lon": 37.5617133, "osm_url": "https://www.openstreetmap.org/node/3181911854"}, "meshchanka": {"name": "Мещанка", "niche": "atelier", "kind": "atelier", "kind_title": "Ателье", "address": "Мещанская улица, 14 с1", "district": "Мещанский", "phones": ["+7 495 796-29-13"], "whatsapp": "", "socials": {}, "hours_text": "Ежедневно 9:00–21:00", "hours_table": [[["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]], [["09:00", "21:00"]]], "lat": 55.7773484, "lon": 37.6284865, "osm_url": "https://www.openstreetmap.org/node/4640043089"}, "remus-m": {"name": "Ремус-М", "niche": "atelier", "kind": "atelier", "kind_title": "Ателье", "address": "Профсоюзная улица, 24 к1", "district": "Академический район", "phones": ["+7 495 718-09-06"], "whatsapp": "", "socials": {}, "hours_text": "Пн–Пт 9:00–20:00, Сб–Вс 10:00–19:00", "hours_table": [[["09:00", "20:00"]], [["09:00", "20:00"]], [["09:00", "20:00"]], [["09:00", "20:00"]], [["09:00", "20:00"]], [["10:00", "19:00"]], [["10:00", "19:00"]]], "lat": 55.6793702, "lon": 37.5638134, "osm_url": "https://www.openstreetmap.org/node/5116020223"}, "dekor-natali": {"name": "Декор-Натали", "niche": "atelier", "kind": "atelier", "kind_title": "Ателье", "address": "Измайловское шоссе, 11", "district": "район Соколиная Гора", "phones": ["+7 499 369-25-54"], "whatsapp": "", "socials": {"Instagram": "https://www.instagram.com/atelienasemenovskoy"}, "hours_text": "", "hours_table": null, "lat": 55.7797112, "lon": 37.7230619, "osm_url": "https://www.openstreetmap.org/node/9279867930"}, "yutsh": {"name": "ЮТШ+", "niche": "atelier", "kind": "shoe", "kind_title": "Ремонт обуви", "address": "Профсоюзная улица, 128 к1", "district": "район Тёплый Стан", "phones": ["+7 495 338-70-00"], "whatsapp": "", "socials": {}, "hours_text": "", "hours_table": null, "lat": 55.6309204, "lon": 37.5159587, "osm_url": "https://www.openstreetmap.org/node/4229578605"}, "raduga": {"name": "Радуга", "niche": "atelier", "kind": "atelier", "kind_title": "Ателье", "address": "1-я Рейсовая улица", "district": "Внуково", "phones": ["+7 495 436-22-95"], "whatsapp": "", "socials": {}, "hours_text": "Пн–Сб 11:00–20:00, Вс выходной", "hours_table": [[["11:00", "20:00"]], [["11:00", "20:00"]], [["11:00", "20:00"]], [["11:00", "20:00"]], [["11:00", "20:00"]], [["11:00", "20:00"]], []], "lat": 55.6103754, "lon": 37.2948369, "osm_url": "https://www.openstreetmap.org/node/7019067160"}}, "services": {"car": ["Компьютерная диагностика", "ТО и замена масла", "Ремонт ходовой части", "Тормозная система", "Шиномонтаж и балансировка", "Автоэлектрика"], "tyres": ["Сезонная переобувка", "Балансировка колёс", "Ремонт проколов", "Правка дисков", "Хранение шин", "Подкачка и проверка давления"], "tuning": ["Компьютерная диагностика", "Чип-тюнинг двигателя", "Прошивка АКПП", "Активация скрытых функций"], "alarm": ["Установка автосигнализации", "Установка иммобилайзера", "Парктроники и камеры", "Ремонт автоэлектрики"], "atelier": ["Подгонка по фигуре", "Укорачивание брюк и рукавов", "Замена молнии", "Ремонт верхней одежды", "Пошив на заказ", "Срочный ремонт"], "shoe": ["Замена набоек", "Профилактика подошвы", "Замена молнии на обуви", "Растяжка обуви", "Ремонт сумок", "Покраска и уход за кожей"], "dance": ["Пошив танцевальных костюмов", "Подгонка по фигуре", "Ремонт и перешив", "Отделка стразами"]}}/*END*/;
+const root = document.documentElement;
 const DAYS = ['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота','Воскресенье'];
-const SHORT = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+const DAYS_ACC = ['в понедельник','во вторник','в среду','в четверг','в пятницу','в субботу','в воскресенье'];
 const SOCIAL = { VK:'ВКонтакте', Instagram:'Instagram', Facebook:'Facebook', DRIVE2:'DRIVE2', Telegram:'Telegram' };
 const GENERIC = {
   auto:    { name:'Ваш автосервис', niche:'auto', kind:'car', kind_title:'Автосервис', address:'', district:'', phones:[], whatsapp:'', socials:{}, hours_table:null },
   atelier: { name:'Ваше ателье', niche:'atelier', kind:'atelier', kind_title:'Ателье', address:'', district:'', phones:[], whatsapp:'', socials:{}, hours_table:null }
 };
+const LEAFLET = {
+  js:  ['https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js', 'sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g=='],
+  css: ['https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css', 'sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==']
+};
+const LICENSES = {
+  'CC BY 2.0':'https://creativecommons.org/licenses/by/2.0/', 'CC BY 4.0':'https://creativecommons.org/licenses/by/4.0/',
+  'CC BY-SA 3.0':'https://creativecommons.org/licenses/by-sa/3.0/', 'CC BY-SA 4.0':'https://creativecommons.org/licenses/by-sa/4.0/',
+  'CC0':'https://creativecommons.org/publicdomain/zero/1.0/'
+};
+// Фото для примера, Wikimedia Commons (подробно в img/CREDITS.md)
+const PHOTOS = {
+  garage:     { file:'auto-garage', widths:[720,1400], w:1400, h:934, pos:'64% 62%', alt:'Машина на подъёмнике в мастерской', author:'Shixart1985', license:'CC BY 2.0', page:'https://commons.wikimedia.org/wiki/File:Car_repair_in_an_auto_shop_with_tools_and_equipment_present_on_the_floor_and_a_partially_disassembled_vehicle_on_a_lift.jpg' },
+  suspension: { file:'auto-detail', widths:[560,1000], w:1000, h:1250, pos:'50% 62%', alt:'Механик подводит стойку под подвеску машины', author:'Shixart1985', license:'CC BY 2.0', page:'https://commons.wikimedia.org/wiki/File:Car_mechanic_worker_repairing_suspension_of_lifted_automobile_at_auto_repair_garage_shop.jpg' },
+  tyres:      { file:'tyres', widths:[720,1400], w:1400, h:808, pos:'45% 60%', alt:'Шины и домкраты у входа в шиномонтаж', author:'CEphoto, Uwe Aranas', license:'CC BY-SA 3.0', page:'https://commons.wikimedia.org/wiki/File:Gombak_Malaysia_Tyre-repair-shop-01.jpg' },
+  sewing:     { file:'atelier-sewing', widths:[720,1400], w:1400, h:934, pos:'58% 55%', alt:'Руки за швейной машиной', author:'Tadeáš Bednarz', license:'CC BY-SA 4.0', page:'https://commons.wikimedia.org/wiki/File:Woman_sewing_a_face_mask_with_a_Singer_machine_09.jpg' },
+  notions:    { file:'atelier-detail', widths:[720,1400], w:1400, h:934, pos:'38% 50%', alt:'Сантиметровая лента, катушка ниток и ножницы', author:'Myriams-Fotos', license:'CC0', page:'https://commons.wikimedia.org/wiki/File:Pexels-photo-461035.jpg' },
+  leather:    { file:'shoe-tools', widths:[720,1400], w:1400, h:929, pos:'50% 50%', alt:'Инструменты для ремонта обуви и кожи', author:'Trougnouf (Benoit Brummer)', license:'CC BY 4.0', page:'https://commons.wikimedia.org/wiki/File:Leather_working_tools_(DSC08329).jpg' }
+};
+const PHOTO_SET = { car:['garage','suspension'], tuning:['garage','suspension'], alarm:['garage','suspension'], tyres:['tyres','garage'],
+                    atelier:['sewing','notions'], dance:['sewing','notions'], shoe:['leather','sewing'] };
+const COPY = {
+  auto:    { note:'Стоимость зависит от машины и объёма работ, уточняйте по телефону.', intro:'Оставьте телефон и коротко опишите, что с машиной. Мастер перезвонит и предложит время.', comment:'Марка и модель, что случилось, когда удобно приехать', route:'auto' },
+  tyres:   { note:'Стоимость зависит от размера колёс, уточняйте по телефону.', intro:'Оставьте телефон, мастер перезвонит и предложит время.', comment:'Размер шин, сколько колёс, когда удобно приехать', route:'auto' },
+  atelier: { note:'Стоимость зависит от вещи и сложности работы, уточняйте по телефону.', intro:'Оставьте телефон и напишите, что нужно сделать. Мастер перезвонит и скажет, когда можно принести вещь.', comment:'Что за вещь и что с ней сделать', route:'mt' },
+  shoe:    { note:'Стоимость зависит от пары и работы, уточняйте по телефону.', intro:'Оставьте телефон и напишите, что нужно сделать. Мастер перезвонит и скажет, когда можно принести обувь или сумку.', comment:'Какая обувь или сумка, что с ней сделать', route:'mt' }
+};
+
 const $ = id => document.getElementById(id);
-const text = (id, v) => { const e = $(id); if (e) e.textContent = v; };
+const setText = (id, v) => { const e = $(id); if (e) e.textContent = v; };
+const own = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
 const tfmt = s => s.replace(/^0(\d)/, '$1');
 const toMin = s => { const [h, m] = s.split(':').map(Number); return h * 60 + m; };
-const dayText = iv => !iv || !iv.length ? 'выходной' : (iv.length === 1 && iv[0][0] === '00:00' && iv[0][1] === '24:00') ? 'круглосуточно' : iv.map(([a,b]) => tfmt(a) + '–' + tfmt(b)).join(', ');
+const is24 = iv => iv.length === 1 && iv[0][0] === '00:00' && iv[0][1] === '24:00';
+const dayText = iv => !iv || !iv.length ? 'выходной' : is24(iv) ? 'круглосуточно' : iv.map(([a, b]) => tfmt(a) + '–' + tfmt(b)).join(', ');
 const telHref = p => 'tel:+' + p.replace(/\D/g, '');
+const el = (tag, props, text) => { const e = document.createElement(tag); if (props) Object.assign(e, props); if (text != null) e.textContent = text; return e; };
 
 function moscowNow(){
   const parts = new Intl.DateTimeFormat('en-GB', { timeZone:'Europe/Moscow', weekday:'short', hour:'2-digit', minute:'2-digit', hour12:false }).formatToParts(new Date());
-  const get = t => parts.find(p => p.type === t).value;
+  const get = t => (parts.find(p => p.type === t) || {}).value;
   const wd = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].indexOf(get('weekday'));
   return { day: wd < 0 ? 0 : wd, min: (Number(get('hour')) % 24) * 60 + Number(get('minute')) };
 }
-function openState(table){
-  if (!table) return { cls:'unknown', label:'Часы работы уточняйте по телефону' };
+function nowState(table){
+  if (!table) return null;
+  if (table.every(is24)) return { open:true, text:'Открыто круглосуточно' };
   const { day, min } = moscowNow();
   for (const [a, b] of table[day] || []) {
-    const s = toMin(a), e = toMin(b);
-    if (min >= s && min < e) return { cls:'open', label: e >= 1440 ? 'Открыто круглосуточно' : 'Открыто до ' + tfmt(b) };
+    const s = toMin(a); let e = toMin(b); if (e <= s) e += 1440;
+    if (min >= s && min < e) return { open:true, text:'Сейчас открыто, до ' + (e >= 1440 ? 'полуночи' : tfmt(b)) };
   }
   for (let k = 0; k < 8; k++) {
     const d = (day + k) % 7;
     for (const [a] of table[d] || []) {
       if (k === 0 && toMin(a) <= min) continue;
-      return { cls:'closed', label: 'Закрыто, откроется ' + (k === 0 ? 'сегодня' : k === 1 ? 'завтра' : 'в ' + SHORT[d]) + ' в ' + tfmt(a) };
+      return { open:false, text:'Сейчас закрыто, откроется ' + (k === 0 ? 'сегодня' : k === 1 ? 'завтра' : DAYS_ACC[d]) + ' в ' + tfmt(a) };
     }
   }
-  return { cls:'closed', label:'Сейчас закрыто' };
+  return { open:false, text:'Сейчас закрыто' };
+}
+function setPhoto(img, key, sizes){
+  const p = PHOTOS[key];
+  if (!img || !p) return;
+  img.srcset = p.widths.map(w => 'img/' + p.file + '-' + w + '.webp ' + w + 'w').join(', ');
+  img.sizes = sizes;
+  img.src = 'img/' + p.file + '-' + p.widths[p.widths.length - 1] + '.webp';
+  img.width = p.w; img.height = p.h; img.alt = p.alt + ' (фото для примера)';
+  img.style.objectPosition = p.pos;
+}
+function socialHref(k, v){
+  const href = /^https?:/.test(v) ? v : k === 'Instagram' ? 'https://instagram.com/' + v : k === 'Facebook' ? 'https://facebook.com/' + v : v;
+  return /^https?:\/\//.test(href) ? href : '';
+}
+
+/* Карта: Leaflet грузится, только когда блок близко к экрану. Если не загрузился, остаётся подпись и ссылки. */
+let leafletState = 'idle', map = null, marker = null, current = null;
+function mapNote(text){ const n = $('map-note'); if (n) { n.textContent = text; n.hidden = false; } }
+function loadLeaflet(done){
+  if (window.L) { leafletState = 'ready'; done(); return; }
+  if (leafletState !== 'idle') return;
+  leafletState = 'loading';
+  const css = el('link', { rel:'stylesheet', href:LEAFLET.css[0], integrity:LEAFLET.css[1], crossOrigin:'anonymous' });
+  const js = el('script', { src:LEAFLET.js[0], integrity:LEAFLET.js[1], crossOrigin:'anonymous', async:true });
+  js.onload = () => { leafletState = window.L ? 'ready' : 'failed'; if (window.L) done(); else mapNote('Карта не загрузилась. Адрес можно открыть в Яндекс Картах или 2ГИС.'); };
+  js.onerror = () => { leafletState = 'failed'; mapNote('Карта не загрузилась. Адрес можно открыть в Яндекс Картах или 2ГИС.'); };
+  document.head.append(css, js);
+}
+function drawMap(){
+  const biz = current;
+  if (!biz || !biz.lat || !window.L) return;
+  try {
+    const L = window.L, box = $('map');
+    if (!map) {
+      $('map-note').hidden = true;
+      map = L.map(box, { scrollWheelZoom:false, dragging:!L.Browser.mobile, tap:false, zoomControl:true });
+      map.attributionControl.setPrefix(false);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom:19, attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">участники OpenStreetMap</a>' }).addTo(map);
+    }
+    const ll = [biz.lat, biz.lon];
+    map.setView(ll, 16);
+    const icon = L.divIcon({ className:'pin', html:'<span></span>', iconSize:[26, 26], iconAnchor:[13, 30] });
+    if (marker) marker.setLatLng(ll); else marker = L.marker(ll, { icon, keyboard:false, title:biz.name }).addTo(map);
+    setTimeout(() => map && map.invalidateSize(), 0);
+  } catch (e) {
+    mapNote('Карта не загрузилась. Адрес можно открыть в Яндекс Картах или 2ГИС.');
+  }
+}
+function watchMap(){
+  const box = $('map');
+  const go = () => loadLeaflet(drawMap);
+  if (!('IntersectionObserver' in window)) { go(); return; }
+  const io = new IntersectionObserver(entries => { if (entries.some(e => e.isIntersecting)) { io.disconnect(); go(); } }, { rootMargin:'400px 0px' });
+  io.observe(box);
 }
 
 function bubbleText(biz, f){
-  const lines = ['Новая заявка с сайта «' + biz.name + '»', 'Имя: ' + (f.name || 'Андрей'), 'Телефон: ' + (f.phone || '+7 900 000-00-00'), 'Услуга: ' + (f.service || '')];
+  const lines = ['Новая заявка с сайта «' + biz.name + '»', 'Имя: ' + (f.name || 'не указано'), 'Телефон: ' + f.phone, 'Что нужно: ' + (f.service || '')];
   if (f.comment) lines.push('Комментарий: ' + f.comment);
   return lines.join('\n');
 }
-function renderBubble(biz, f, real){
-  const b = $('bubble'); b.textContent = bubbleText(biz, f);
-  const t = document.createElement('time');
-  const now = new Intl.DateTimeFormat('ru-RU', { timeZone:'Europe/Moscow', hour:'2-digit', minute:'2-digit' }).format(new Date());
-  t.textContent = now; b.append(t);
-  $('tg-tag').hidden = real;
-  if (real) { b.classList.remove('flash'); void b.offsetWidth; b.classList.add('flash'); }
-}
 
 function render(){
-  const slug = decodeURIComponent(location.hash.slice(1)).toLowerCase();
-  const biz = DATA.leads[slug] || GENERIC[slug] || GENERIC.auto;
-  const isGeneric = !DATA.leads[slug];
-  document.documentElement.dataset.niche = biz.niche;
-  document.title = isGeneric ? 'Черновик вашего сайта' : '«' + biz.name + '» · черновик сайта';
+  let slug = '';
+  try { slug = decodeURIComponent(location.hash.slice(1)).toLowerCase(); } catch (e) { slug = ''; }
+  const known = own(DATA.leads, slug);
+  const biz = known ? DATA.leads[slug] : (own(GENERIC, slug) ? GENERIC[slug] : GENERIC.auto);
+  current = biz;
+  const niche = biz.niche === 'atelier' ? 'atelier' : 'auto';
+  const copy = COPY[biz.kind] || COPY[niche];
+  root.dataset.niche = niche;
+  const kindLow = biz.kind_title.charAt(0).toLowerCase() + biz.kind_title.slice(1);
+  document.title = known ? biz.name + ', ' + kindLow + ' в Москве. Черновик сайта' : 'Черновик сайта';
+  const tc = document.querySelector('meta[name="theme-color"]');
+  if (tc) tc.content = getComputedStyle(root).getPropertyValue('--paper').trim() || tc.content;
 
-  const where = [biz.address, biz.district].filter(Boolean);
-  const kindLine = biz.kind_title + (biz.district ? ' · ' + biz.district : '');
-  text('draft-title', isGeneric ? 'Черновик сайта' : 'Черновик сайта для «' + biz.name + '»');
-  text('mark', (biz.name.replace(/^[«"\s]+/, '')[0] || 'М').toUpperCase());
-  text('brand-name', biz.name); text('brand-kind', kindLine);
-  text('hero-eyebrow', kindLine);
-  text('hero-name', biz.name);
-  text('hero-lead', (biz.address ? biz.kind_title + ' в Москве, ' + biz.address + '. ' : '') + 'Запишитесь по телефону или оставьте заявку на сайте.');
-  text('foot-name', biz.name); text('foot-addr', where.join(', ') || 'Москва');
+  // пометка черновика
+  const draft = $('draft');
+  draft.textContent = (known ? 'Черновик сайта для «' + biz.name + '». Адрес, телефон и часы работы взяты из открытых карт, тексты и фото для примера.'
+                             : 'Черновик сайта. Адрес, телефон и часы работы подставляются из открытых карт, тексты и фото для примера.') + ' Собрал Радмир, Telegram ';
+  draft.append(el('a', { href:'https://t.me/radmirshaikh', target:'_blank', rel:'noopener' }, '@radmirshaikh'));
 
-  const plate = $('plate'); plate.textContent = biz.address || 'Москва, ваш адрес';
-  const sm = document.createElement('small'); sm.textContent = biz.district || 'район'; plate.append(sm);
+  // первый экран
+  setText('biz-name', biz.name);
+  setText('hero-what', biz.kind_title + ' в Москве');
+  const addrLine = [biz.address, biz.district].filter(Boolean).join(', ');
+  setText('hero-addr', addrLine ? addrLine.charAt(0).toUpperCase() + addrLine.slice(1) : 'Москва');
+  const st = nowState(biz.hours_table);
+  const now = $('hero-now');
+  now.hidden = !st; now.textContent = st ? st.text : ''; now.classList.toggle('is-open', !!(st && st.open));
 
-  const phone = biz.phones[0] || '';
-  $('kv-phone').hidden = !phone;
-  text('phone-main', phone);
-  ['cta-call','top-call','bar-call'].forEach(id => { const a = $(id); a.href = phone ? telHref(phone) : '#zapis'; a.textContent = phone ? 'Позвонить' : 'Записаться'; });
-  const wa = $('cta-wa'); wa.hidden = !biz.whatsapp; if (biz.whatsapp) wa.href = biz.whatsapp;
-
-  const st = openState(biz.hours_table);
-  const s = $('status'); s.className = 'status ' + st.cls; s.textContent = st.label;
-  const today = moscowNow().day;
-  $('kv-hours').hidden = !biz.hours_table;
-  text('today-hours', biz.hours_table ? DAYS[today] + ', ' + dayText(biz.hours_table[today]) : '');
-
-  const tb = $('hours').tBodies[0]; tb.innerHTML = '';
-  $('hours').hidden = !biz.hours_table; $('hours-hint').hidden = !!biz.hours_table;
-  (biz.hours_table || []).forEach((iv, d) => {
-    const tr = document.createElement('tr'); if (d === today) tr.className = 'today';
-    const a = document.createElement('td'); a.textContent = DAYS[d] + (d === today ? ' (сегодня)' : '');
-    const b = document.createElement('td'); b.textContent = dayText(iv);
-    tr.append(a, b); tb.append(tr);
-  });
-
-  text('addr-full', biz.address ? 'Москва, ' + biz.address : 'Москва, ваш адрес');
-  text('addr-district', biz.district || 'район появится здесь');
-  $('phones-block').hidden = !biz.phones.length;
-  text('phones-all', biz.phones.join('\n'));
-  $('phones-all').style.whiteSpace = 'pre-line';
-  const ml = $('map-links'); ml.innerHTML = '';
-  const addLink = (label, href) => { const a = document.createElement('a'); a.className = 'btn sm'; a.href = href; a.target = '_blank'; a.rel = 'noopener'; a.textContent = label; ml.append(a); };
-  if (biz.lat) {
-    addLink('Яндекс Карты', 'https://yandex.ru/maps/?pt=' + biz.lon + ',' + biz.lat + '&z=17&l=map');
-    addLink('OpenStreetMap', biz.osm_url);
+  const phone = (biz.phones || [])[0] || '';
+  const vk = biz.socials && biz.socials.VK ? socialHref('VK', biz.socials.VK) : '';
+  const call = $('call-main'), bar = $('call-bar');
+  if (phone) {
+    call.href = bar.href = telHref(phone); call.removeAttribute('target');
+    setText('call-label', 'Позвонить'); setText('call-num', phone); bar.textContent = 'Позвонить';
+  } else if (vk) {
+    call.href = vk; call.target = '_blank'; call.rel = 'noopener';
+    setText('call-label', 'Написать ВКонтакте'); setText('call-num', '');
+    bar.href = '#zapis'; bar.textContent = 'Записаться';
+  } else {
+    call.href = bar.href = '#zapis'; call.removeAttribute('target');
+    setText('call-label', 'Записаться'); setText('call-num', ''); bar.textContent = 'Записаться';
   }
-  Object.entries(biz.socials || {}).forEach(([k, v]) => {
-    const href = /^https?:/.test(v) ? v : k === 'Instagram' ? 'https://instagram.com/' + v : k === 'Facebook' ? 'https://facebook.com/' + v : v;
-    if (/^https?:/.test(href)) addLink(SOCIAL[k] || k, href);
+  const wa = $('wa-main'); wa.hidden = !biz.whatsapp; if (biz.whatsapp) wa.href = biz.whatsapp;
+
+  const set = PHOTO_SET[biz.kind] || PHOTO_SET[niche === 'atelier' ? 'atelier' : 'car'];
+  setPhoto($('hero-img'), set[0], niche === 'auto' ? '(min-width: 900px) 55vw, 100vw' : '(min-width: 900px) 42vw, 100vw');
+  setPhoto($('svc-img'), set[1], '(min-width: 900px) 40vw, 100vw');
+
+  // услуги: типовой список для ниши, без цен
+  const list = DATA.services[biz.kind] || DATA.services[niche === 'atelier' ? 'atelier' : 'car'] || [];
+  const ul = $('svc-list'); ul.textContent = '';
+  list.forEach(n => ul.append(el('li', null, n)));
+  setText('svc-note', phone ? copy.note : copy.note.replace('по телефону', 'при записи'));
+
+  // адрес, карта, часы
+  const addr = $('addr'); addr.textContent = biz.address ? 'Москва, ' + biz.address : 'Москва';
+  if (biz.district) addr.append(el('span', null, biz.district.charAt(0).toUpperCase() + biz.district.slice(1)));
+  const route = $('route'); route.textContent = '';
+  const hasPoint = typeof biz.lat === 'number' && typeof biz.lon === 'number';
+  if (hasPoint) {
+    route.append(el('a', { href:'https://yandex.ru/maps/?rtext=~' + biz.lat + '%2C' + biz.lon + '&rtt=' + copy.route, target:'_blank', rel:'noopener' }, 'Маршрут в Яндекс Картах'));
+    route.append(el('a', { href:'https://2gis.ru/moscow/geo/' + biz.lon + '%2C' + biz.lat, target:'_blank', rel:'noopener' }, 'Открыть в 2ГИС'));
+  }
+  route.hidden = !hasPoint;
+  $('map').hidden = !hasPoint;
+  if (hasPoint && leafletState === 'ready') drawMap();
+
+  const today = moscowNow().day;
+  const tb = $('hours').tBodies[0]; tb.textContent = '';
+  $('hours').hidden = !biz.hours_table; $('hours-none').hidden = !!biz.hours_table;
+  (biz.hours_table || []).forEach((iv, d) => {
+    const tr = el('tr', { className: d === today ? 'today' : '' });
+    const th = el('th', { scope:'row' }, DAYS[d]);
+    if (d === today) th.append(el('span', { className:'today-mark' }, 'сегодня'));
+    tr.append(th, el('td', null, dayText(iv)));
+    tb.append(tr);
   });
+  setText('hours-none', phone ? 'Часы работы уточняйте по телефону.' : 'Часы работы уточняйте при записи.');
 
-  const list = DATA.services[biz.kind] || DATA.services.car || [];
-  const ul = $('services'); ul.innerHTML = '';
-  list.forEach(n => { const li = document.createElement('li'); li.textContent = n; const p = document.createElement('span'); p.textContent = 'цена от …'; li.append(p); ul.append(li); });
-  const sel = $('f-service'); sel.innerHTML = '';
-  list.concat(['Другое']).forEach(n => { const o = document.createElement('option'); o.textContent = n; sel.append(o); });
-  $('f-comment').placeholder = biz.niche === 'auto' ? 'Марка авто, удобное время, что случилось' : 'Что за вещь, что нужно сделать, удобное время';
+  const contacts = $('contacts'); contacts.textContent = '';
+  (biz.phones || []).forEach(p => contacts.append(el('a', { href:telHref(p) }, p)));
+  if (biz.whatsapp) contacts.append(el('a', { href:biz.whatsapp, target:'_blank', rel:'noopener' }, 'WhatsApp'));
+  Object.entries(biz.socials || {}).forEach(([k, v]) => { const h = socialHref(k, v); if (h) contacts.append(el('a', { href:h, target:'_blank', rel:'noopener' }, SOCIAL[k] || k)); });
+  contacts.hidden = !contacts.childNodes.length;
 
-  renderBubble(biz, { service: list[0] || '' }, false);
-  $('form').onsubmit = e => {
-    e.preventDefault();
-    const f = { name: $('f-name').value.trim(), phone: $('f-phone').value.trim(), service: sel.value, comment: $('f-comment').value.trim() };
-    renderBubble(biz, f, true);
-    text('form-hint', 'Готово. Так заявка выглядит у владельца в Telegram. В черновике она никуда не ушла.');
-  };
+  // запись
+  setText('book-intro', copy.intro);
+  $('f-comment').placeholder = copy.comment;
+  const sel = $('f-service'); sel.textContent = '';
+  list.concat(['Другое']).forEach(n => sel.append(el('option', null, n)));
+  $('lead').hidden = false; $('sent').hidden = true;
+
+  // подвал
+  setText('foot-name', biz.name);
+  const fl = $('foot-lines'); fl.textContent = '';
+  fl.append(el('span', null, biz.kind_title + (addrLine ? ', ' + addrLine : ', Москва')));
+  if (phone) fl.append(el('a', { href:telHref(phone) }, phone));
+  const cr = $('credits'); cr.textContent = 'Фото для примера с Wikimedia Commons: ';
+  const seen = new Set();
+  set.map(k => PHOTOS[k]).filter(p => { const id = p.author + p.license; if (seen.has(id)) return false; seen.add(id); return true; }).forEach((p, i) => {
+    if (i) cr.append('; ');
+    cr.append(el('a', { href:p.page, target:'_blank', rel:'noopener' }, p.author), ', ');
+    cr.append(el('a', { href:LICENSES[p.license] || p.page, target:'_blank', rel:'noopener' }, p.license));
+  });
+  cr.append('. Карта: © участники OpenStreetMap.');
+  fitName();
 }
-window.addEventListener('hashchange', render);
+
+// Название крупно, но самое длинное слово должно помещаться в строку без переноса посреди слова
+function fitName(){
+  const h = $('biz-name');
+  h.style.fontSize = '';
+  const cs = getComputedStyle(h), size = parseFloat(cs.fontSize), avail = h.clientWidth;
+  if (!avail || !size) return;
+  const probe = el('span');
+  probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;left:-9999px;top:0';
+  probe.style.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+  probe.style.letterSpacing = cs.letterSpacing;
+  document.body.append(probe);
+  let widest = 0;
+  h.textContent.split(/\s+/).forEach(w => { probe.textContent = w; widest = Math.max(widest, probe.getBoundingClientRect().width); });
+  probe.remove();
+  if (widest > avail) h.style.fontSize = Math.floor(size * avail / widest * 0.97) + 'px';
+}
+let resizeTimer = 0;
+window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(fitName, 150); });
+if (document.fonts) { if (document.fonts.ready) document.fonts.ready.then(fitName); if (document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', fitName); }
+
+$('lead').addEventListener('submit', e => {
+  e.preventDefault();
+  const phoneInput = $('f-phone');
+  const f = { name:$('f-name').value.trim(), phone:phoneInput.value.trim(), service:$('f-service').value, comment:$('f-comment').value.trim() };
+  const bad = f.phone.replace(/\D/g, '').length < 5;
+  phoneInput.setAttribute('aria-invalid', bad ? 'true' : 'false');
+  $('f-phone-err').hidden = !bad;
+  if (bad) { phoneInput.focus(); return; }
+  const b = $('bubble'); b.textContent = '';
+  b.append(el('b', null, 'Бот заявок'), bubbleText(current, f));
+  b.append(el('time', null, new Intl.DateTimeFormat('ru-RU', { timeZone:'Europe/Moscow', hour:'2-digit', minute:'2-digit' }).format(new Date())));
+  $('lead').hidden = true;
+  const sent = $('sent'); sent.hidden = false; sent.focus({ preventScroll:true });
+});
+$('again').addEventListener('click', () => { $('sent').hidden = true; $('lead').hidden = false; $('f-phone').focus(); });
+
+// Нижняя кнопка звонка на телефоне: показываем, когда кнопки первого экрана ушли вверх
+const callbar = $('callbar');
+if ('IntersectionObserver' in window) {
+  new IntersectionObserver(([e]) => { callbar.classList.toggle('show', !e.isIntersecting && e.boundingClientRect.top < 0); }).observe($('hero-actions'));
+} else {
+  callbar.classList.add('show');
+}
+
+// Ссылки на разделы (#zapis, #adres) не должны менять хэш: в нём живёт адрес бизнеса
+const isSection = id => !!id && !own(DATA.leads, id) && !own(GENERIC, id) && !!document.getElementById(id);
+document.addEventListener('click', e => {
+  const a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+  if (!a) return;
+  const id = a.getAttribute('href').slice(1);
+  if (!isSection(id)) return;
+  e.preventDefault();
+  const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.getElementById(id).scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block:'start' });
+});
+window.addEventListener('hashchange', () => { if (!isSection(location.hash.slice(1))) render(); });
 render();
+watchMap();
 })();
 </script>
-
 </body>
 </html>
