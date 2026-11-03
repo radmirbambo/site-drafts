@@ -6,8 +6,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Кафе ЭкоНива — Бугульма, Ломоносова 4</title>
 <meta name="description" content="Кафе ЭкоНива в Бугульме: завтраки весь день, домашняя кухня, детское меню, банкеты в двух залах по 40 мест. ул. Ломоносова, 4.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Кафе ЭкоНива в Бугульме">
+<meta property="og:description" content="Домашняя кухня, завтраки весь день, детская комната, вся кухня халяль. Ломоносова, 4, ежедневно 10–21.">
+<meta property="og:image" content="https://radmirbambo.github.io/site-drafts/cafe-bugulma/img/2gis/p1.jpg">
+<meta property="og:url" content="https://radmirbambo.github.io/site-drafts/cafe-bugulma/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Restaurant","name":"Кафе ЭкоНива","telephone":"+79325321666",
+"address":{"@type":"PostalAddress","streetAddress":"ул. Ломоносова, 4, 2 этаж","addressLocality":"Бугульма","addressCountry":"RU"},
+"geo":{"@type":"GeoCoordinates","latitude":54.549411,"longitude":52.807675},
+"openingHours":"Mo-Su 10:00-21:00","servesCuisine":["Домашняя","Халяль"],"priceRange":"₽₽",
+"aggregateRating":{"@type":"AggregateRating","ratingValue":"5","reviewCount":"14"},"image":"https://radmirbambo.github.io/site-drafts/cafe-bugulma/img/2gis/p1.jpg"}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Caveat:wght@600&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
 :root{
   --green:#10583d; --green-2:#10583d; --leaf:#32a93e; /* фирменные цвета ЭкоНивы с ekoniva-moloko.com */
@@ -159,6 +171,8 @@ footer b{color:#fff}
   footer{padding-bottom:90px}
 }
 @media(max-width:560px){.logo-text small{display:none}}
+.facts-score{color:var(--green);font-weight:700;text-decoration:none}
+.form .btn{width:100%}
 </style>
 </head>
 <body>
@@ -188,10 +202,10 @@ footer b{color:#fff}
         <a class="btn ghost" href="#halls">Забронировать стол</a>
       </div>
       <div class="facts">
-        <span>Два зала по 40 мест</span><span>Детская комната</span><span>Вся кухня халяль</span><span>Ежедневно 10:00–21:00</span>
+        <span>Два зала по 40 мест</span><span>Детская комната</span><span>Вся кухня халяль</span><span>Ежедневно 10:00–21:00</span><a class="facts-score" href="#gallery">★ 5,0 в 2ГИС</a>
       </div>
     </div>
-    <img class="ph hero-ph" src="img/2gis/p1.jpg" alt="Зал кафе ЭкоНива" loading="lazy">
+    <img class="ph hero-ph" src="img/2gis/p1.jpg" alt="Зал кафе ЭкоНива" fetchpriority="high">
   </div>
 </div>
 
@@ -288,7 +302,7 @@ footer b{color:#fff}
       </div>
       <img class="ph wide-ph" src="img/2gis/p8.jpg" alt="Зал кафе" loading="lazy">
     </div>
-    <form class="form" onsubmit="event.preventDefault();this.querySelector('button').textContent='Спасибо! Перезвоним';">
+    <form class="form" onsubmit="return sendLead(event)">
       <h3>Заявка на стол или банкет</h3>
       <label for="n">Имя</label><input id="n" required autocomplete="name">
       <label for="ph">Телефон</label><input id="ph" type="tel" required autocomplete="tel" placeholder="+7">
@@ -298,7 +312,8 @@ footer b{color:#fff}
       </div>
       <label for="t">Повод</label>
       <select id="t"><option>Просто посидеть</option><option>День рождения</option><option>Детский праздник</option><option>Корпоратив</option><option>Другое</option></select>
-      <button class="btn" type="submit">Отправить заявку</button>
+      <button class="btn" type="submit">Отправить в WhatsApp</button>
+<a class="btn ghost" href="tel:+79325321666" style="margin-top:8px">Или позвонить: +7 932 532-16-66</a>
       <small>Нажимая кнопку, вы соглашаетесь на обработку персональных данных <span class="todo">ссылка на политику <span class="ek">ЭкоНивы</span></span></small>
     </form>
   </div>
@@ -330,6 +345,9 @@ footer b{color:#fff}
 <div class="callbar"><a class="btn" href="tel:+79325321666">Позвонить</a><a class="btn ghost" style="background:#fff" href="#halls">Бронь</a></div>
 
 <script>
+function sendLead(e){e.preventDefault();const v=id=>document.getElementById(id).value.trim();
+const t=['Здравствуйте! Заявка с сайта кафе.','Имя: '+v('n'),'Телефон: '+v('ph'),v('d')&&'Дата: '+v('d'),v('g')&&'Гостей: '+v('g'),'Повод: '+v('t')].filter(Boolean).join('\n');
+window.open('https://wa.me/79325321666?text='+encodeURIComponent(t),'_blank');return false}
 const N='new',F='fav',H='hand';
 const MENU=[
  ['Завтраки весь день',[
