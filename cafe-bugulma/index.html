@@ -52,6 +52,21 @@ h1 em{font-style:normal;font-family:Caveat,cursive;font-weight:600;color:var(--g
 .facts>span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--leaf);margin-right:8px;vertical-align:1px}
 .photo{border-radius:18px;background:repeating-linear-gradient(45deg,var(--kraft-2) 0 12px,#d5c9b1 12px 24px);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;text-align:center;color:#6d6350;font-size:14px;font-weight:600;padding:20px}
 .hero .photo{aspect-ratio:4/5}
+.ph{display:block;width:100%;object-fit:cover;border-radius:18px;border:1px solid var(--line)}
+.hero-ph{aspect-ratio:4/5}
+.wide-ph{aspect-ratio:16/9}
+.card .ph{border-radius:0;border:0;border-bottom:1px solid var(--line);aspect-ratio:16/10}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.gallery img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:14px;display:block}
+.gallery img:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:auto;height:100%}
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
+.rev{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px}
+.rev p{margin:0 0 12px;color:#45504a}
+.rev b{font-size:14px}
+.rev small{color:var(--muted);display:block;font-size:12px}
+.score{display:inline-flex;align-items:center;gap:10px;font-weight:700;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 16px;text-decoration:none}
+.score .st{color:var(--gold);letter-spacing:2px}
+@media(max-width:860px){.gallery{grid-template-columns:repeat(2,1fr)}.reviews{grid-template-columns:1fr}.hero-ph{aspect-ratio:4/3}}
 @media(max-width:860px){.hero-in{grid-template-columns:1fr;padding:40px 20px}.hero .photo{aspect-ratio:16/10}}
 
 /* sections */
@@ -151,7 +166,7 @@ footer b{color:#fff}
       <span class="logo-text">Кафе ЭкоНива<small>Бугульма, ул. Ломоносова, 4</small></span>
     </a>
     <nav class="menu-links">
-      <a href="#menu">Меню</a><a href="#kids">Детям</a><a href="#halls">Банкеты</a><a href="#contacts">Как добраться</a>
+      <a href="#menu">Меню</a><a href="#kids">Детям</a><a href="#gallery">Фото и отзывы</a><a href="#halls">Банкеты</a><a href="#contacts">Как добраться</a>
     </nav>
     <a class="btn" href="tel:+70000000000">Позвонить</a>
   </div>
@@ -172,7 +187,7 @@ footer b{color:#fff}
         <span>Два зала по 40 мест</span><span>Детская комната</span><span>Халяль-блюда</span><span>Ежедневно 10:00–21:00</span>
       </div>
     </div>
-    <div class="photo">Фото зала или фасада кафе<br>(нужно от бати или отдела маркетинга)</div>
+    <img class="ph hero-ph" src="img/2gis/p1.jpg" alt="Зал кафе ЭкоНива" loading="lazy">
   </div>
 </div>
 
@@ -195,7 +210,7 @@ footer b{color:#fff}
   <div class="wrap">
     <div>
       <h2>Продукция ЭкоНивы на каждом столе</h2>
-      <p>Кафе работает при компании ЭкоНива, поэтому молоко, творог и йогурты у нас свои. Из них готовим сырники, вареники, какао и молочные коктейли.</p>
+      <p>Кафе работает при компании ЭкоНива, поэтому молоко, творог и йогурты у нас свои. Из них готовим сырники, вареники, какао и молочные коктейли, а кофе варим на молоке ЭкоНивы. В зале стоит витрина с продукцией ЭкоНивы.</p>
     </div>
     <div class="dairy">
       <div>Молоко «ЭкоНива»<small>50 мл · 30 ₽</small></div>
@@ -212,22 +227,22 @@ footer b{color:#fff}
     <p class="sub">Приходят семьями, после лыжни, на обед в будни и отмечать праздники.</p>
     <div class="grid3">
       <div class="card">
-        <div class="photo">Фото детской комнаты</div>
+        <img class="ph" src="img/2gis/p10.jpg" alt="Детская игровая комната" loading="lazy">
         <div class="in">
           <h3>Семьям с детьми</h3>
-          <p>Детская комната, пока взрослые обедают. Отдельное меню «Для маленьких и больших»: наггетсы, пюре с котлетой, сырные колобки, пицца.</p>
+          <p>Большая игровая комната на треть кафе: столик и стульчики, мольберт, пазлы, кубики, мягкие игрушки. Отдельное меню «Для маленьких и больших»: наггетсы, пюре с котлетой, сырные колобки, пицца.</p>
           <p>Мастер-классы для детей <span class="todo">расписание?</span></p>
         </div>
       </div>
       <div class="card">
-        <div class="photo">Фото с лыжной базы</div>
+        <img class="ph" src="img/2gis/p5.jpg" alt="Борщ со сметаной" loading="lazy">
         <div class="in">
           <h3>После лыжни</h3>
           <p>Согреться горячим: борщ, куриный бульон, азу по-татарски, какао со сливками и морс литром на компанию.</p>
         </div>
       </div>
       <div class="card">
-        <div class="photo">Фото банкетного зала</div>
+        <img class="ph" src="img/2gis/p2.jpg" alt="Зал с диванами" loading="lazy">
         <div class="in">
           <h3>Праздники и корпоративы</h3>
           <p>Дни рождения, детские праздники, новогодние корпоративы. Два зала по 40 мест, банкетное меню под ваш бюджет.</p>
@@ -235,6 +250,26 @@ footer b{color:#fff}
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <h2>Как у нас</h2>
+    <p class="sub">Светлый зал с мягкими диванами, барная стойка, детская комната и витрина с продукцией ЭкоНивы.</p>
+    <div class="gallery">
+      <img src="img/2gis/p9.jpg" alt="Вход в кафе ЭкоНива" loading="lazy">
+      <img src="img/2gis/p3.jpg" alt="Завтрак: блины и чай" loading="lazy">
+      <img src="img/2gis/p4.jpg" alt="Витрина с продукцией ЭкоНивы" loading="lazy">
+      <img src="img/2gis/p7.jpg" alt="Детская комната" loading="lazy">
+      <img src="img/2gis/p11.jpg" alt="Рисунки в детской комнате" loading="lazy">
+    </div>
+    <div class="reviews">
+      <div class="rev"><p>«Замечательное кафе для всей семьи: комфортно и старшему поколению, и молодым, и детям. Обычно в кафе вареники невкусные, а тут они были очень вкусные и сытные»</p><b>Дильбар Г.</b><small>2ГИС, июль 2026</small></div>
+      <div class="rev"><p>«Кухня особенно хороша, придём ещё точно, понравился кофе на молоке ЭкоНивы, персонал вежливый»</p><b>Фёдор Г.</b><small>2ГИС, октябрь 2026</small></div>
+      <div class="rev"><p>«Решили отмечать важное событие для нашей семьи именно здесь и не пожалели. Обслуживание на высоте, накрыли на стол, как и планировали. По стоимости вышло не так дорого»</p><b>Анастасия С.</b><small>2ГИС, июль 2026</small></div>
+    </div>
+    <p style="margin-top:24px"><a class="score" href="https://2gis.ru/bugulma/firm/70000001113181100/tab/reviews" target="_blank" rel="noopener"><span class="st">★★★★★</span> 5,0 в 2ГИС · 14 оценок</a></p>
   </div>
 </section>
 
@@ -248,7 +283,7 @@ footer b{color:#fff}
         <div><b>40</b><span>мест в каждом</span></div>
         <div><b><span class="todo" style="font-size:16px">от ? ₽</span></b><span>на гостя</span></div>
       </div>
-      <div class="photo" style="aspect-ratio:16/9">Фото зала с сервировкой</div>
+      <img class="ph wide-ph" src="img/2gis/p8.jpg" alt="Зал кафе" loading="lazy">
     </div>
     <form class="form" onsubmit="event.preventDefault();this.querySelector('button').textContent='Спасибо! Перезвоним';">
       <h3>Заявка на стол или банкет</h3>
@@ -274,10 +309,10 @@ footer b{color:#fff}
         <div><b>Адрес</b>Бугульма, ул. Ломоносова, 4<br><span style="font-size:15px;font-weight:500;color:var(--muted)">на территории лыжной базы <span class="todo">проверить</span></span></div>
         <div><b>Телефон</b><span class="todo">номер кафе</span></div>
         <div><b>Режим работы</b>Ежедневно с 10:00 до 21:00</div>
-        <div><b>Мы на картах</b><a href="https://yandex.ru/maps/?text=%D0%91%D1%83%D0%B3%D1%83%D0%BB%D1%8C%D0%BC%D0%B0%2C%20%D1%83%D0%BB.%20%D0%9B%D0%BE%D0%BC%D0%BE%D0%BD%D0%BE%D1%81%D0%BE%D0%B2%D0%B0%2C%204" target="_blank" rel="noopener">Яндекс Карты</a> · <a href="https://2gis.ru/search/%D0%91%D1%83%D0%B3%D1%83%D0%BB%D1%8C%D0%BC%D0%B0%20%D0%9B%D0%BE%D0%BC%D0%BE%D0%BD%D0%BE%D1%81%D0%BE%D0%B2%D0%B0%204" target="_blank" rel="noopener">2ГИС</a></div>
+        <div><b>Мы на картах</b><a href="https://yandex.ru/maps/?text=%D0%91%D1%83%D0%B3%D1%83%D0%BB%D1%8C%D0%BC%D0%B0%2C%20%D1%83%D0%BB.%20%D0%9B%D0%BE%D0%BC%D0%BE%D0%BD%D0%BE%D1%81%D0%BE%D0%B2%D0%B0%2C%204" target="_blank" rel="noopener">Яндекс Карты</a> · <a href="https://2gis.ru/bugulma/firm/70000001113181100" target="_blank" rel="noopener">2ГИС</a></div>
       </div>
     </div>
-    <div class="map"><iframe title="Карта" loading="lazy" src="https://yandex.ru/map-widget/v1/?text=%D0%91%D1%83%D0%B3%D1%83%D0%BB%D1%8C%D0%BC%D0%B0%2C%20%D1%83%D0%BB.%20%D0%9B%D0%BE%D0%BC%D0%BE%D0%BD%D0%BE%D1%81%D0%BE%D0%B2%D0%B0%2C%204&z=16"></iframe></div>
+    <div class="map"><iframe title="Карта" loading="lazy" src="https://yandex.ru/map-widget/v1/?ll=52.807675%2C54.549411&z=16&pt=52.807675%2C54.549411%2Cpm2gnm"></iframe></div>
   </div>
 </section>
 </main>
