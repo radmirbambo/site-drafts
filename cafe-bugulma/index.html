@@ -177,6 +177,7 @@ footer b{color:#fff}
 .nw{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;display:flex;gap:16px}
 .nw .dt{flex:0 0 58px;align-self:flex-start;text-align:center;border-radius:12px;background:var(--kraft);padding:8px 0;line-height:1}
 .nw .dt b{display:block;font-size:26px;color:var(--green)}.nw .dt small{font-size:12px;font-weight:600;color:var(--muted)}
+.nw.invite{grid-column:1/-1;max-width:640px;background:var(--kraft)}
 .nw h3{margin:2px 0 4px;font-size:17px}.nw p{margin:0;color:#45504a;font-size:15px}
 .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:6px;color:#fff}
 .tag.t-mk{background:var(--leaf)}.tag.t-closed{background:#b5482f}.tag.t-info{background:var(--green)}
@@ -330,7 +331,7 @@ footer b{color:#fff}
       </div>
       <label for="t">Повод</label>
       <select id="t"><option>Просто посидеть</option><option>День рождения</option><option>Детский праздник</option><option>Корпоратив</option><option>Другое</option></select>
-      <button class="btn" type="submit">Отправить в WhatsApp</button>
+      <button class="btn" type="submit">Отправить в MAX</button>
 <a class="btn ghost" href="tel:+79325321666" style="margin-top:8px">Или позвонить: +7 932 532-16-66</a>
       <small>Нажимая кнопку, вы соглашаетесь на обработку персональных данных <span class="todo">ссылка на политику <span class="ek">ЭкоНивы</span></span></small>
     </form>
@@ -345,7 +346,8 @@ footer b{color:#fff}
         <div><b>Адрес</b>Бугульма, ул. Ломоносова, 4<br><span style="font-size:15px;font-weight:500;color:var(--muted)">в здании лыжной базы, 2 этаж</span></div>
         <div><b>Телефон</b><a href="tel:+79325321666" style="color:inherit">+7 932 532-16-66</a></div>
         <div><b>Режим работы</b>Ежедневно с 10:00 до 21:00</div>
-        <div><b>Мы на картах</b><a href="https://yandex.ru/maps/?text=%D0%91%D1%83%D0%B3%D1%83%D0%BB%D1%8C%D0%BC%D0%B0%2C%20%D1%83%D0%BB.%20%D0%9B%D0%BE%D0%BC%D0%BE%D0%BD%D0%BE%D1%81%D0%BE%D0%B2%D0%B0%2C%204" target="_blank" rel="noopener">Яндекс Карты</a> · <a href="https://2gis.ru/bugulma/firm/70000001113181100" target="_blank" rel="noopener">2ГИС</a></div>
+        <div><b>Написать</b><a href="https://max.ru/" target="_blank" rel="noopener" style="color:inherit">в MAX</a> <span class="todo">ссылка на профиль</span></div>
+<div><b>Мы на картах</b><a href="https://yandex.ru/maps/?text=%D0%91%D1%83%D0%B3%D1%83%D0%BB%D1%8C%D0%BC%D0%B0%2C%20%D1%83%D0%BB.%20%D0%9B%D0%BE%D0%BC%D0%BE%D0%BD%D0%BE%D1%81%D0%BE%D0%B2%D0%B0%2C%204" target="_blank" rel="noopener">Яндекс Карты</a> · <a href="https://2gis.ru/bugulma/firm/70000001113181100" target="_blank" rel="noopener">2ГИС</a></div>
       </div>
     </div>
     <div class="map"><iframe title="Карта" loading="lazy" src="https://yandex.ru/map-widget/v1/?ll=52.807675%2C54.549411&z=16&pt=52.807675%2C54.549411%2Cpm2gnm"></iframe></div>
@@ -363,9 +365,11 @@ footer b{color:#fff}
 <div class="callbar"><a class="btn" href="tel:+79325321666">Позвонить</a><a class="btn ghost" style="background:#fff" href="#halls">Бронь</a></div>
 
 <script>
+const MAX_URL='https://max.ru/'; /* TODO: ссылка на профиль администратора в MAX, вида https://max.ru/u/... */
 function sendLead(e){e.preventDefault();const v=id=>document.getElementById(id).value.trim();
 const t=['Здравствуйте! Заявка с сайта кафе.','Имя: '+v('n'),'Телефон: '+v('ph'),v('d')&&'Дата: '+v('d'),v('g')&&'Гостей: '+v('g'),'Повод: '+v('t')].filter(Boolean).join('\n');
-window.open('https://wa.me/79325321666?text='+encodeURIComponent(t),'_blank');return false}
+const f=e.target,ok=()=>{f.querySelector('button').textContent='Текст скопирован, вставьте его в чат';window.open(MAX_URL,'_blank')};
+navigator.clipboard?navigator.clipboard.writeText(t).then(ok,ok):ok();return false}
 const N='new',F='fav',H='hand';
 const MENU=[
  ['Завтраки весь день',[
@@ -423,7 +427,7 @@ const NEWS=[
   const today=new Date();today.setHours(0,0,0,0);
   const list=NEWS.map(n=>({...n,d:new Date(n.date+'T00:00:00')})).filter(n=>n.d>=today).sort((a,b)=>a.d-b.d);
   const box=document.getElementById('newsList');
-  if(!list.length){box.innerHTML='<p class="sub" style="margin:0">Ближайших мероприятий нет, кафе работает в обычном режиме.</p>';}
+  if(!list.length){box.innerHTML='<div class="nw invite"><div><h3>Скоро новые мастер-классы</h3><p>Хотите устроить праздник или мастер-класс для своей компании? Позвоните, всё организуем.</p><a class="btn" href="tel:+79325321666" style="margin-top:12px">Позвонить</a></div></div>';}
   list.forEach(n=>{const el=document.createElement('div');el.className='nw';
     el.innerHTML=`<div class="dt"><b>${n.d.getDate()}</b><small>${M[n.d.getMonth()]}</small></div><div><span class="tag t-${n.type}">${TAG[n.type]||''}</span><h3>${n.title}${n.example?' <span class="todo">пример</span>':''}</h3><p>${n.from?n.from+'–'+n.to+'. ':''}${n.text||''}</p></div>`;
     box.appendChild(el);});
