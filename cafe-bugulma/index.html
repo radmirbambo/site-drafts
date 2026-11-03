@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кафе ЭкоНива — Бугульма, Ломоносова 4</title>
+<meta name="description" content="Кафе ЭкоНива в Бугульме: завтраки весь день, домашняя кухня, детское меню, банкеты в двух залах по 40 мест. ул. Ломоносова, 4.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#2c4f35; --green-2:#3d6a47; --leaf:#5fae3e;
+  --kraft:#e9e1d1; --kraft-2:#ddd2bc; --paper:#f6f2ea;
+  --ink:#24302a; --muted:#6b7068; --line:#c9bea7;
+  --red:#d9573b; --gold:#c9a24a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Montserrat,system-ui,sans-serif;font-size:16px;line-height:1.55}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.todo{display:inline-block;background:#fff3b0;color:#6a5500;border:1px dashed #c9a400;border-radius:6px;padding:0 6px;font-size:.85em;font-weight:600}
+
+/* header */
+header{position:sticky;top:0;z-index:10;background:rgba(246,242,234,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.badge{width:48px;height:48px;border-radius:50%;background:#fff;border:2px solid var(--leaf);display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
+.badge .t{flex:1;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:800;color:var(--green);letter-spacing:.02em;line-height:1}
+.badge .b{flex:1.1;background:var(--leaf);color:#fff;font-family:Caveat,cursive;font-size:17px;display:flex;align-items:center;justify-content:center;line-height:1}
+.logo-text{font-weight:700;font-size:15px;line-height:1.15}
+.logo-text small{display:block;font-weight:500;color:var(--muted);font-size:12px}
+.menu-links{display:flex;gap:22px;font-size:14px;font-weight:600}
+.menu-links a{text-decoration:none}
+.menu-links a:hover{color:var(--green-2)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--green);color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:13px 22px;border-radius:999px;border:0;cursor:pointer;white-space:nowrap}
+.btn:hover{background:var(--green-2)}
+.btn.ghost{background:transparent;color:var(--green);border:2px solid var(--green)}
+.nav .btn{padding:10px 18px;font-size:14px}
+@media(max-width:860px){.menu-links{display:none}}
+
+/* hero */
+.hero{background:var(--kraft);border-bottom:1px solid var(--line)}
+.hero-in{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:64px 20px 56px}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green-2)}
+h1{font-size:clamp(34px,5.4vw,58px);line-height:1.04;margin:14px 0 18px;font-weight:800;letter-spacing:-.01em}
+h1 em{font-style:normal;font-family:Caveat,cursive;font-weight:600;color:var(--green-2);font-size:1.15em}
+.lead{font-size:18px;max-width:30em;margin:0 0 26px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+.facts{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:28px;font-size:14px;font-weight:600}
+.facts>span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--leaf);margin-right:8px;vertical-align:1px}
+.photo{border-radius:18px;background:repeating-linear-gradient(45deg,var(--kraft-2) 0 12px,#d5c9b1 12px 24px);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;text-align:center;color:#6d6350;font-size:14px;font-weight:600;padding:20px}
+.hero .photo{aspect-ratio:4/5}
+@media(max-width:860px){.hero-in{grid-template-columns:1fr;padding:40px 20px}.hero .photo{aspect-ratio:16/10}}
+
+/* sections */
+section{padding:72px 0}
+h2{font-size:clamp(28px,3.6vw,40px);line-height:1.1;margin:0 0 12px;font-weight:800}
+.sub{color:var(--muted);max-width:42em;margin:0 0 36px}
+
+/* menu */
+#menu{background:var(--paper)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.tab{border:1.5px solid var(--green);background:transparent;color:var(--green);font:600 14px Montserrat,sans-serif;padding:8px 16px;border-radius:999px;cursor:pointer}
+.tab[aria-selected=true]{background:var(--green);color:#fff}
+.menu-board{background:var(--kraft);border:1px solid var(--line);border-radius:18px;padding:30px 34px;box-shadow:0 1px 0 #fff inset}
+.cat{display:none}
+.cat.on{display:block}
+.cat h3{font-size:15px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 6px;padding-bottom:10px;border-bottom:2px solid var(--ink)}
+.cols{columns:2;column-gap:48px}
+@media(max-width:760px){.cols{columns:1}.menu-board{padding:22px 18px}}
+.item{break-inside:avoid;display:flex;align-items:baseline;gap:8px;padding:11px 0;border-bottom:1px dotted var(--line)}
+.item .n{font-weight:600}
+.item .dots{flex:1}
+.item .w{color:var(--muted);font-size:13px;white-space:nowrap}
+.item .p{font-weight:800;white-space:nowrap;min-width:64px;text-align:right}
+.mk{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:5px;font-size:11px;margin-left:5px;vertical-align:1px;color:#fff;font-weight:800}
+.mk.new{background:var(--red)}
+.mk.fav{background:#e08a5e}
+.mk.hand{background:#5d4e7a}
+.mk.halal{background:#4f8a4a}
+.legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;font-size:13px;color:var(--muted)}
+.legend .mk{margin:0 6px 0 0}
+.note{font-size:13px;color:var(--muted);margin-top:16px}
+
+/* dairy band */
+.band{background:var(--green);color:#f3efe6}
+.band .wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.band h2{color:#fff}
+.band p{color:#dfe7da}
+.dairy{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.dairy div{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:16px 18px;font-weight:600}
+.dairy small{display:block;font-weight:500;color:#b9c9b4;margin-top:2px}
+@media(max-width:860px){.band .wrap{grid-template-columns:1fr}}
+
+/* cards */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:860px){.grid3{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.card .photo{border-radius:0;border:0;border-bottom:1px solid var(--line);aspect-ratio:16/10}
+.card .in{padding:22px 22px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+.card h3{margin:0;font-size:20px}
+.card p{margin:0;color:#45504a}
+.card ul{margin:0;padding-left:18px;color:#45504a}
+.card .btn{margin-top:auto;align-self:flex-start}
+
+/* halls */
+#halls{background:var(--kraft)}
+.halls{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+@media(max-width:860px){.halls{grid-template-columns:1fr}}
+.stat{display:flex;gap:28px;margin:22px 0 28px}
+.stat b{display:block;font-size:40px;line-height:1;color:var(--green)}
+.stat span{font-size:14px;color:var(--muted)}
+.form{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px}
+.form h3{margin:0 0 16px;font-size:20px}
+label{display:block;font-size:13px;font-weight:600;margin:12px 0 6px}
+input,select,textarea{width:100%;font:500 15px Montserrat,sans-serif;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form .btn{width:100%;margin-top:18px}
+.form small{display:block;color:var(--muted);font-size:12px;margin-top:10px}
+
+/* contacts */
+.contacts{display:grid;grid-template-columns:1fr 1.2fr;gap:36px}
+@media(max-width:860px){.contacts{grid-template-columns:1fr}}
+.cl{display:grid;gap:18px}
+.cl div b{display:block;font-size:13px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
+.cl div{font-size:18px;font-weight:600}
+.map{border-radius:18px;overflow:hidden;border:1px solid var(--line);min-height:340px;background:var(--kraft-2)}
+.map iframe{width:100%;height:100%;min-height:340px;border:0;display:block}
+
+footer{background:#1f3826;color:#c8d3c4;padding:40px 0;font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px}
+footer b{color:#fff}
+
+.callbar{display:none}
+@media(max-width:760px){
+  .callbar{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:20;gap:10px}
+  .callbar .btn{flex:1;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+  footer{padding-bottom:90px}
+}
+</style>
+</head>
+<body>
+
+<div style="background:#fff3b0;color:#6a5500;text-align:center;font:600 13px Montserrat,sans-serif;padding:6px 12px">Черновик сайта для согласования. Жёлтым отмечено, что нужно уточнить</div>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="Кафе ЭкоНива">
+      <span class="badge"><span class="t">ЭКОНИВА</span><span class="b">Кафе</span></span>
+      <span class="logo-text">Кафе ЭкоНива<small>Бугульма, ул. Ломоносова, 4</small></span>
+    </a>
+    <nav class="menu-links">
+      <a href="#menu">Меню</a><a href="#kids">Детям</a><a href="#halls">Банкеты</a><a href="#contacts">Как добраться</a>
+    </nav>
+    <a class="btn" href="tel:+70000000000">Позвонить</a>
+  </div>
+</header>
+
+<main id="top">
+<div class="hero">
+  <div class="wrap hero-in">
+    <div>
+      <div class="kicker">Кафе ЭкоНива · Бугульма</div>
+      <h1>Домашняя кухня <em>и молочное</em> ЭкоНивы рядом с лыжней</h1>
+      <p class="lead">Мы готовим с заботой о вашем здоровье и настроении. Завтраки весь день, супы, пельмени ручной лепки, детское меню и десерты на продукции ЭкоНивы.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#menu">Смотреть меню</a>
+        <a class="btn ghost" href="#halls">Забронировать стол</a>
+      </div>
+      <div class="facts">
+        <span>Два зала по 40 мест</span><span>Детская комната</span><span>Халяль-блюда</span><span>Ежедневно <span class="todo">часы?</span></span>
+      </div>
+    </div>
+    <div class="photo">Фото зала или фасада кафе<br>(нужно от бати или отдела маркетинга)</div>
+  </div>
+</div>
+
+<section id="menu">
+  <div class="wrap">
+    <h2>Меню</h2>
+    <p class="sub">Цены из актуального меню. Выход блюда указан в граммах.</p>
+    <div class="tabs" role="tablist"></div>
+    <div class="menu-board" id="board"></div>
+    <div class="legend">
+      <span><span class="mk new">✦</span>новинка</span>
+      <span><span class="mk fav">♥</span>ваш выбор</span>
+      <span><span class="mk hand">◐</span>ручная лепка</span>
+      <span><span class="mk halal">☾</span>халяль</span>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div>
+      <h2>Молочное ЭкоНивы на каждом столе</h2>
+      <p>Кафе работает при компании ЭкоНива, поэтому молоко, творог и йогурты у нас свои. Из них готовим сырники, вареники, какао и молочные коктейли.</p>
+    </div>
+    <div class="dairy">
+      <div>Молоко «ЭкоНива»<small>50 мл · 30 ₽</small></div>
+      <div>Йогурт «ЭкоНива»<small>300 мл · 54 ₽</small></div>
+      <div>Вареники с творогом<small>200 г · 300 ₽</small></div>
+      <div>Молочный коктейль<small>300 мл · 250 ₽</small></div>
+    </div>
+  </div>
+</section>
+
+<section id="kids">
+  <div class="wrap">
+    <h2>Для кого мы</h2>
+    <p class="sub">Приходят семьями, после лыжни, на обед в будни и отмечать праздники.</p>
+    <div class="grid3">
+      <div class="card">
+        <div class="photo">Фото детской комнаты</div>
+        <div class="in">
+          <h3>Семьям с детьми</h3>
+          <p>Детская комната, пока взрослые обедают. Отдельное меню «Для маленьких и больших»: наггетсы, пюре с котлетой, сырные колобки, пицца.</p>
+          <p>Мастер-классы для детей <span class="todo">расписание?</span></p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="photo">Фото с лыжной базы</div>
+        <div class="in">
+          <h3>После лыжни</h3>
+          <p>Согреться горячим: борщ, куриный бульон, азу по-татарски, какао со сливками и морс литром на компанию.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="photo">Фото банкетного зала</div>
+        <div class="in">
+          <h3>Праздники и корпоративы</h3>
+          <p>Дни рождения, детские праздники, новогодние корпоративы. Два зала по 40 мест, банкетное меню под ваш бюджет.</p>
+          <a class="btn ghost" href="#halls">Узнать условия</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="halls">
+  <div class="wrap halls">
+    <div>
+      <h2>Банкеты и бронирование</h2>
+      <p class="sub" style="margin-bottom:0">Оставьте заявку, администратор перезвонит, подберёт зал и меню под количество гостей.</p>
+      <div class="stat">
+        <div><b>2</b><span>зала</span></div>
+        <div><b>40</b><span>мест в каждом</span></div>
+        <div><b><span class="todo" style="font-size:16px">от ? ₽</span></b><span>на гостя</span></div>
+      </div>
+      <div class="photo" style="aspect-ratio:16/9">Фото зала с сервировкой</div>
+    </div>
+    <form class="form" onsubmit="event.preventDefault();this.querySelector('button').textContent='Спасибо! Перезвоним';">
+      <h3>Заявка на стол или банкет</h3>
+      <label for="n">Имя</label><input id="n" required autocomplete="name">
+      <label for="ph">Телефон</label><input id="ph" type="tel" required autocomplete="tel" placeholder="+7">
+      <div class="row2">
+        <div><label for="d">Дата</label><input id="d" type="date"></div>
+        <div><label for="g">Гостей</label><input id="g" type="number" min="1" max="80" placeholder="10"></div>
+      </div>
+      <label for="t">Повод</label>
+      <select id="t"><option>Просто посидеть</option><option>День рождения</option><option>Детский праздник</option><option>Корпоратив</option><option>Другое</option></select>
+      <button class="btn" type="submit">Отправить заявку</button>
+      <small>Нажимая кнопку, вы соглашаетесь на обработку персональных данных <span class="todo">ссылка на политику ЭкоНивы</span></small>
+    </form>
+  </div>
+</section>
+
+<section id="contacts">
+  <div class="wrap contacts">
+    <div>
+      <h2>Как добраться</h2>
+      <div class="cl">
+        <div><b>Адрес</b>Бугульма, ул. Ломоносова, 4<br><span style="font-size:15px;font-weight:500;color:var(--muted)">на территории лыжной базы <span class="todo">проверить</span></span></div>
+        <div><b>Телефон</b><span class="todo">номер кафе</span></div>
+        <div><b>Режим работы</b><span class="todo">часы работы</span></div>
+        <div><b>Мы на картах</b><a href="https://yandex.ru/maps/?text=%D0%91%D1%83%D0%B3%D1%83%D0%BB%D1%8C%D0%BC%D0%B0%2C%20%D1%83%D0%BB.%20%D0%9B%D0%BE%D0%BC%D0%BE%D0%BD%D0%BE%D1%81%D0%BE%D0%B2%D0%B0%2C%204" target="_blank" rel="noopener">Яндекс Карты</a> · <a href="https://2gis.ru/search/%D0%91%D1%83%D0%B3%D1%83%D0%BB%D1%8C%D0%BC%D0%B0%20%D0%9B%D0%BE%D0%BC%D0%BE%D0%BD%D0%BE%D1%81%D0%BE%D0%B2%D0%B0%204" target="_blank" rel="noopener">2ГИС</a></div>
+      </div>
+    </div>
+    <div class="map"><iframe title="Карта" loading="lazy" src="https://yandex.ru/map-widget/v1/?text=%D0%91%D1%83%D0%B3%D1%83%D0%BB%D1%8C%D0%BC%D0%B0%2C%20%D1%83%D0%BB.%20%D0%9B%D0%BE%D0%BC%D0%BE%D0%BD%D0%BE%D1%81%D0%BE%D0%B2%D0%B0%2C%204&z=16"></iframe></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b>Кафе ЭкоНива</b> · Бугульма, ул. Ломоносова, 4<br>Часть сети компании <a href="https://www.ekoniva-moloko.com/" target="_blank" rel="noopener">ЭкоНива</a></div>
+    <div>Оператор: <span class="todo">юрлицо, ИНН — уточнить</span><br>Политика конфиденциальности <span class="todo">ссылка</span></div>
+  </div>
+</footer>
+
+<div class="callbar"><a class="btn" href="tel:+70000000000">Позвонить</a><a class="btn ghost" style="background:#fff" href="#halls">Бронь</a></div>
+
+<script>
+const N='new',F='fav',H='hand',L='halal';
+const MENU=[
+ ['Завтраки весь день',[
+  ['Большой завтрак с ветчиной','335 г',670],['Большой завтрак с сосисками','418 г',690],
+  ['Каша рисовая','250 г',150],['Каша овсяная','250 г',150],
+  ['Сырники «Московские» с ирисочным соусом','180 г',290],['Сырники «Сибирские» с вареньем из сосновой шишки','170 г',310,[F]],
+  ['Сырники классические','150 г',250],['Блины классические','150 г',190],
+  ['Блины с творогом','270 г',230],['Блины с сыром и ветчиной','230 г',250]]],
+ ['Салаты и супы',[
+  ['Овощной салат с фетой и оливками','210 г',320],['Зелёный салат с курицей и помидорами','215 г',380],
+  ['Оливье с говяжьим языком','200 г',420,[L]],['Борщ с говядиной','300 г',360,[F,L]],
+  ['Куриный бульон с яйцом и зеленью','300 г',290]]],
+ ['Горячее',[
+  ['Пельмени с говядиной на мясном бульоне','430 г',390,[H]],['Вареники с картофелем и сыром','250 г',350,[H]],
+  ['Вареники с творогом «ЭкоНива»','200 г',300,[H]],['Стейк из говядины с перечным соусом и картофельным пюре','320 г',650,[L]],
+  ['Говяжий язык с жареным картофелем и соусом из сметаны и сливочного хрена','275 г',610,[L]],['Азу по-татарски','250 г',450,[N]]]],
+ ['Для маленьких и больших',[
+  ['Пюре с куриной котлетой','270 г',420],['Наггетсы','160 г',230],['Картофель фри','130 г',160],
+  ['Картофельные дольки','150 г',200],['Батат с сыром Dürr','180 г',350,[N,F]],['Овощные палочки','60 г',120],
+  ['Сырные колобки','170 г',320],['Макароны с сыром и сосисками','360 г',350],
+  ['Пицца «Пеперони»','550 г',690],['Пицца «Сырная»','450 г',590,[F]]]],
+ ['Напитки',[
+  ['Какао со взбитыми сливками и зефиром','300 мл',220],['Чай чёрный, зелёный, травяной','500 мл',230],
+  ['Американо','200 мл',150],['Эспрессо','50 мл',180],['Латте','200 / 300 мл','200 / 250'],
+  ['Капучино','200 / 300 мл','200 / 230'],['Молоко «ЭкоНива»','50 мл',30],
+  ['Лимонад: мохито классический, клубничный','300 мл',190],['Морс клюквенный, облепиховый','1000 мл',380],
+  ['Молочный коктейль: ванильный, клубничный, шоколадный','300 мл',250],['Йогурт «ЭкоНива» в ассортименте','300 мл',54,[F]],
+  ['Вода газированная, без газа','500 мл',75],['Сок в ассортименте','200 мл',56]]],
+ ['Добавки',[
+  ['Сметана, кетчуп, сырный соус, сгущёнка, джем, сироп, варенье из сосновой шишки','30 г',50],
+  ['Хлеб в ассортименте','90 г',50],['Мороженое в ассортименте','60 г',130]]]
+];
+const MK={new:['new','✦','новинка'],fav:['fav','♥','ваш выбор'],hand:['hand','◐','ручная лепка'],halal:['halal','☾','халяль']};
+const tabs=document.querySelector('.tabs'),board=document.getElementById('board');
+MENU.forEach(([name,items],i)=>{
+  const b=document.createElement('button');b.className='tab';b.role='tab';b.textContent=name;
+  b.setAttribute('aria-selected',i===0);b.onclick=()=>show(i);tabs.appendChild(b);
+  const c=document.createElement('div');c.className='cat'+(i===0?' on':'');
+  c.innerHTML=`<h3>${name}</h3><div class="cols">`+items.map(([n,w,p,m=[]])=>
+    `<div class="item"><span class="n">${n}${m.map(k=>`<span class="mk ${MK[k][0]}" title="${MK[k][2]}">${MK[k][1]}</span>`).join('')}</span><span class="dots"></span><span class="w">${w}</span><span class="p">${p} ₽</span></div>`).join('')+'</div>';
+  board.appendChild(c);
+});
+function show(i){[...tabs.children].forEach((t,j)=>t.setAttribute('aria-selected',i===j));[...board.children].forEach((c,j)=>c.classList.toggle('on',i===j));}
+</script>
+</body>
+</html>
