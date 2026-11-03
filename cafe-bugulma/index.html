@@ -7,7 +7,7 @@
 <title>Кафе ЭкоНива — Бугульма, Ломоносова 4</title>
 <meta name="description" content="Кафе ЭкоНива в Бугульме: завтраки весь день, домашняя кухня, детское меню, банкеты в двух залах по 40 мест. ул. Ломоносова, 4.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Caveat:wght@600&family=Marck+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Caveat:wght@600&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
 :root{
   --green:#10583d; --green-2:#10583d; --leaf:#32a93e; /* фирменные цвета ЭкоНивы с ekoniva-moloko.com */
@@ -50,7 +50,7 @@ h1 .ek,h2 .ek{font-weight:inherit}
 .hero-in{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:64px 20px 56px}
 .kicker{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green-2)}
 h1{font-size:clamp(34px,5.4vw,58px);line-height:1.04;margin:14px 0 18px;font-weight:800;letter-spacing:-.01em}
-h1 em{display:block;font-style:normal;font-family:"Marck Script",cursive;font-weight:400;color:var(--green-2);font-size:1.25em;line-height:1.1;letter-spacing:0}
+h1 em{display:block;font-style:normal;font-family:"Great Vibes",cursive;font-weight:400;color:var(--green-2);font-size:1.4em;line-height:1.05;letter-spacing:0}
 .lead{font-size:18px;max-width:30em;margin:0 0 26px}
 .hero-actions{display:flex;flex-wrap:wrap;gap:12px}
 .facts{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:28px;font-size:14px;font-weight:600}
@@ -99,7 +99,6 @@ h2{font-size:clamp(28px,3.6vw,40px);line-height:1.1;margin:0 0 12px;font-weight:
 .mk.new{background:var(--red)}
 .mk.fav{background:#e08a5e}
 .mk.hand{background:#5d4e7a}
-.mk.halal{background:#4f8a4a}
 .legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;font-size:13px;color:var(--muted)}
 .legend .mk{margin:0 6px 0 0}
 .note{font-size:13px;color:var(--muted);margin-top:16px}
@@ -188,7 +187,7 @@ footer b{color:#fff}
         <a class="btn ghost" href="#halls">Забронировать стол</a>
       </div>
       <div class="facts">
-        <span>Два зала по 40 мест</span><span>Детская комната</span><span>Халяль-блюда</span><span>Ежедневно 10:00–21:00</span>
+        <span>Два зала по 40 мест</span><span>Детская комната</span><span>Вся кухня халяль</span><span>Ежедневно 10:00–21:00</span>
       </div>
     </div>
     <img class="ph hero-ph" src="img/2gis/p1.jpg" alt="Зал кафе ЭкоНива" loading="lazy">
@@ -198,14 +197,13 @@ footer b{color:#fff}
 <section id="menu">
   <div class="wrap">
     <h2>Меню</h2>
-    <p class="sub">Цены из актуального меню. Выход блюда указан в граммах.</p>
+    <p class="sub">Цены из актуального меню. Выход блюда указан в граммах. Все блюда халяль.</p>
     <div class="tabs" role="tablist"></div>
     <div class="menu-board" id="board"></div>
     <div class="legend">
       <span><span class="mk new">✦</span>новинка</span>
       <span><span class="mk fav">♥</span>ваш выбор</span>
       <span><span class="mk hand">◐</span>ручная лепка</span>
-      <span><span class="mk halal">☾</span>халяль</span>
     </div>
   </div>
 </section>
@@ -331,7 +329,7 @@ footer b{color:#fff}
 <div class="callbar"><a class="btn" href="tel:+79325321666">Позвонить</a><a class="btn ghost" style="background:#fff" href="#halls">Бронь</a></div>
 
 <script>
-const N='new',F='fav',H='hand',L='halal';
+const N='new',F='fav',H='hand';
 const MENU=[
  ['Завтраки весь день',[
   ['Большой завтрак с ветчиной','335 г',670],['Большой завтрак с сосисками','418 г',690],
@@ -341,12 +339,12 @@ const MENU=[
   ['Блины с творогом','270 г',230],['Блины с сыром и ветчиной','230 г',250]]],
  ['Салаты и супы',[
   ['Овощной салат с фетой и оливками','210 г',320],['Зелёный салат с курицей и помидорами','215 г',380],
-  ['Оливье с говяжьим языком','200 г',420,[L]],['Борщ с говядиной','300 г',360,[F,L]],
+  ['Оливье с говяжьим языком','200 г',420],['Борщ с говядиной','300 г',360,[F]],
   ['Куриный бульон с яйцом и зеленью','300 г',290]]],
  ['Горячее',[
   ['Пельмени с говядиной на мясном бульоне','430 г',390,[H]],['Вареники с картофелем и сыром','250 г',350,[H]],
-  ['Вареники с творогом «ЭкоНива»','200 г',300,[H]],['Стейк из говядины с перечным соусом и картофельным пюре','320 г',650,[L]],
-  ['Говяжий язык с жареным картофелем и соусом из сметаны и сливочного хрена','275 г',610,[L]],['Азу по-татарски','250 г',450,[N]]]],
+  ['Вареники с творогом «ЭкоНива»','200 г',300,[H]],['Стейк из говядины с перечным соусом и картофельным пюре','320 г',650],
+  ['Говяжий язык с жареным картофелем и соусом из сметаны и сливочного хрена','275 г',610],['Азу по-татарски','250 г',450,[N]]]],
  ['Для маленьких и больших',[
   ['Пюре с куриной котлетой','270 г',420],['Наггетсы','160 г',230],['Картофель фри','130 г',160],
   ['Картофельные дольки','150 г',200],['Батат с сыром Dürr','180 г',350,[N,F]],['Овощные палочки','60 г',120],
@@ -363,7 +361,7 @@ const MENU=[
   ['Сметана, кетчуп, сырный соус, сгущёнка, джем, сироп, варенье из сосновой шишки','30 г',50],
   ['Хлеб в ассортименте','90 г',50],['Мороженое в ассортименте','60 г',130]]]
 ];
-const MK={new:['new','✦','новинка'],fav:['fav','♥','ваш выбор'],hand:['hand','◐','ручная лепка'],halal:['halal','☾','халяль']};
+const MK={new:['new','✦','новинка'],fav:['fav','♥','ваш выбор'],hand:['hand','◐','ручная лепка']};
 const tabs=document.querySelector('.tabs'),board=document.getElementById('board');
 MENU.forEach(([name,items],i)=>{
   const b=document.createElement('button');b.className='tab';b.role='tab';b.textContent=name;
