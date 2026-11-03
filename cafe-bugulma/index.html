@@ -179,7 +179,7 @@ footer b{color:#fff}
 .nw .dt b{display:block;font-size:26px;color:var(--green)}.nw .dt small{font-size:12px;font-weight:600;color:var(--muted)}
 .nw h3{margin:2px 0 4px;font-size:17px}.nw p{margin:0;color:#45504a;font-size:15px}
 .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:6px;color:#fff}
-.tag.t-mk{background:var(--leaf)}.tag.t-closed{background:#b5482f}.tag.t-loud{background:#c98a1a}.tag.t-info{background:var(--green)}
+.tag.t-mk{background:var(--leaf)}.tag.t-closed{background:#b5482f}.tag.t-info{background:var(--green)}
 .today{background:#fff3d6;border-bottom:1px solid #e8cf8f;text-align:center;font:600 14px Montserrat,sans-serif;padding:8px 16px;color:#5a4300}
 .today[hidden]{display:none}
 </style>
@@ -222,7 +222,7 @@ footer b{color:#fff}
 <section id="news" style="padding-bottom:24px">
   <div class="wrap">
     <h2>Анонсы</h2>
-    <p class="sub">Мастер-классы, праздники и дни, когда кафе закрыто на спецобслуживание. Если хотите посидеть в тишине, загляните сюда перед визитом.</p>
+    <p class="sub">Мастер-классы, праздники и дни, когда кафе закрыто на спецобслуживание.</p>
     <div class="news" id="newsList"></div>
   </div>
 </section>
@@ -266,7 +266,7 @@ footer b{color:#fff}
         <div class="in">
           <h3>Семьям с детьми</h3>
           <p>Большая игровая комната на треть кафе: столик и стульчики, мольберт, пазлы, кубики, мягкие игрушки. Отдельное меню «Для маленьких и больших»: наггетсы, пюре с котлетой, сырные колобки, пицца.</p>
-          <p>Мастер-классы для детей <span class="todo">расписание?</span></p>
+          <p>Мастер-классы для детей: <a href="#news" style="color:var(--green);font-weight:700">следите за анонсами</a></p>
         </div>
       </div>
       <div class="card">
@@ -412,14 +412,13 @@ function show(i){[...tabs.children].forEach((t,j)=>t.setAttribute('aria-selected
 </script>
 <script>
 /* ДОСКА АНОНСОВ. Чтобы добавить анонс, допишите строку. Прошедшие скрываются сами.
-   type: mk — мастер-класс, closed — закрыто на спецобслуживание, loud — будет шумно, info — новость */
+   type: mk — мастер-класс, closed — закрыто на спецобслуживание, info — новость */
 const NEWS=[
-  {date:'2026-11-08',from:'12:00',to:'14:00',type:'mk',title:'Мастер-класс для детей',text:'Лепим вареники. В зале будет шумно и весело.',example:1},
+  {date:'2026-11-08',from:'12:00',to:'14:00',type:'mk',title:'Мастер-класс для детей',text:'Лепим вареники.',example:1},
   {date:'2026-11-14',from:'17:00',to:'21:00',type:'closed',title:'Закрыто на спецобслуживание',text:'Банкет. Днём кафе работает как обычно.',example:1},
-  {date:'2026-11-22',from:'15:00',to:'18:00',type:'loud',title:'Детский день рождения',text:'Малый зал занят, в большом может быть шумно.',example:1},
 ];
 (function(){
-  const TAG={mk:'Мастер-класс',closed:'Спецобслуживание',loud:'Будет шумно',info:'Новость'};
+  const TAG={mk:'Мастер-класс',closed:'Спецобслуживание',info:'Новость'};
   const M=['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
   const today=new Date();today.setHours(0,0,0,0);
   const list=NEWS.map(n=>({...n,d:new Date(n.date+'T00:00:00')})).filter(n=>n.d>=today).sort((a,b)=>a.d-b.d);
@@ -429,7 +428,7 @@ const NEWS=[
     el.innerHTML=`<div class="dt"><b>${n.d.getDate()}</b><small>${M[n.d.getMonth()]}</small></div><div><span class="tag t-${n.type}">${TAG[n.type]||''}</span><h3>${n.title}${n.example?' <span class="todo">пример</span>':''}</h3><p>${n.from?n.from+'–'+n.to+'. ':''}${n.text||''}</p></div>`;
     box.appendChild(el);});
   const t=list.find(n=>+n.d===+today);
-  if(t){const b=document.getElementById('today');b.textContent=`Сегодня ${t.from?'с '+t.from+' до '+t.to:''}: ${t.title.toLowerCase()}${t.type==='closed'?'. Кафе закрыто на это время':t.type==='mk'||t.type==='loud'?'. Будет шумно и весело':''}`;b.hidden=false;}
+  if(t){const b=document.getElementById('today');b.textContent=`Сегодня ${t.from?'с '+t.from+' до '+t.to:''}: ${t.title.toLowerCase()}${t.type==='closed'?'. Кафе закрыто на это время':''}`;b.hidden=false;}
 })();
 </script>
 </body>
