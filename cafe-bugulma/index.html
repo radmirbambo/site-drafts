@@ -10,9 +10,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Caveat:wght@600&family=Lobster&display=swap" rel="stylesheet">
 <style>
 :root{
-  --green:#2c4f35; --green-2:#3d6a47; --leaf:#5fae3e;
+  --green:#10583d; --green-2:#10583d; --leaf:#32a93e; /* фирменные цвета ЭкоНивы с ekoniva-moloko.com */
   --kraft:#e9e1d1; --kraft-2:#ddd2bc; --paper:#f6f2ea;
-  --ink:#24302a; --muted:#6b7068; --line:#c9bea7;
+  --ink:#303030; --muted:#6b7068; --line:#c9bea7;
   --red:#d9573b; --gold:#c9a24a;
 }
 *{box-sizing:border-box}
@@ -29,6 +29,11 @@ header{position:sticky;top:0;z-index:10;background:rgba(246,242,234,.94);backdro
 .badge{width:48px;height:48px;border-radius:50%;background:#fff;border:2px solid var(--leaf);display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
 .badge .t{flex:1;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:800;color:var(--green);letter-spacing:.02em;line-height:1}
 .badge .b{flex:1.1;background:var(--leaf);color:#fff;font-family:Caveat,cursive;font-size:17px;display:flex;align-items:center;justify-content:center;line-height:1}
+.logo img{height:34px;width:auto;display:block}
+.logo .sep{width:1px;height:34px;background:var(--line)}
+.ek{font-weight:700;color:var(--leaf);white-space:nowrap}.ek b{color:var(--green);font-weight:inherit}
+.band .ek{color:#fff}.band .ek b{color:var(--leaf)}
+h1 .ek,h2 .ek{font-weight:inherit}
 .logo-text{font-weight:700;font-size:15px;line-height:1.15}
 .logo-text small{display:block;font-weight:500;color:var(--muted);font-size:12px}
 .menu-links{display:flex;gap:22px;font-size:14px;font-weight:600}
@@ -162,8 +167,8 @@ footer b{color:#fff}
 <header>
   <div class="wrap nav">
     <a class="logo" href="#top" aria-label="Кафе ЭкоНива">
-      <span class="badge"><span class="t">ЭКОНИВА</span><span class="b">Кафе</span></span>
-      <span class="logo-text">Кафе ЭкоНива<small>Бугульма, ул. Ломоносова, 4</small></span>
+      <img src="img/brand/ekoniva-logo.png" alt="ЭкоНива" width="109" height="34"><span class="sep"></span>
+      <span class="logo-text">Кафе<small>Бугульма, ул. Ломоносова, 4</small></span>
     </a>
     <nav class="menu-links">
       <a href="#menu">Меню</a><a href="#kids">Детям</a><a href="#gallery">Фото и отзывы</a><a href="#halls">Банкеты</a><a href="#contacts">Как добраться</a>
@@ -176,8 +181,8 @@ footer b{color:#fff}
 <div class="hero">
   <div class="wrap hero-in">
     <div>
-      <h1><em>Домашняя</em> кухня ЭкоНивы рядом с&nbsp;природой</h1>
-      <p class="lead">Мы готовим с заботой о Вашем здоровье и настроении. Приятная атмосфера, завтраки весь день, блюда ручной лепки, наваристый борщ, детское меню и десерты из продукции ЭкоНивы.</p>
+      <h1><em>Домашняя</em> кухня <span class="ek">Эко<b>Н</b>ивы</span> рядом с&nbsp;природой</h1>
+      <p class="lead">Мы готовим с заботой о Вашем здоровье и настроении. Приятная атмосфера, завтраки весь день, блюда ручной лепки, наваристый борщ, детское меню и десерты из продукции <span class="ek">Эко<b>Н</b>ивы</span>.</p>
       <div class="hero-actions">
         <a class="btn" href="#menu">Смотреть меню</a>
         <a class="btn ghost" href="#halls">Забронировать стол</a>
@@ -208,12 +213,12 @@ footer b{color:#fff}
 <section class="band">
   <div class="wrap">
     <div>
-      <h2>Продукция ЭкоНивы на каждом столе</h2>
-      <p>Кафе работает под управлением компании ЭкоНива, поэтому блюда готовятся из фирменных молочных ингредиентов. В зале стоит витрина с продукцией ЭкоНивы, которую можно приобрести по обычным ценам.</p>
+      <h2>Продукция <span class="ek">Эко<b>Н</b>ивы</span> на каждом столе</h2>
+      <p>Кафе работает под управлением компании <span class="ek">Эко<b>Н</b>ива</span>, поэтому блюда готовятся из фирменных молочных ингредиентов. В зале стоит витрина с продукцией <span class="ek">Эко<b>Н</b>ивы</span>, которую можно приобрести по обычным ценам.</p>
     </div>
     <div class="dairy">
-      <div>Молоко «ЭкоНива»<small>50 мл · 30 ₽</small></div>
-      <div>Йогурт «ЭкоНива»<small>300 мл · 54 ₽</small></div>
+      <div>Молоко «<span class="ek">Эко<b>Н</b>ива</span>»<small>50 мл · 30 ₽</small></div>
+      <div>Йогурт «<span class="ek">Эко<b>Н</b>ива</span>»<small>300 мл · 54 ₽</small></div>
       <div>Вареники с творогом<small>200 г · 300 ₽</small></div>
       <div>Молочный коктейль<small>300 мл · 250 ₽</small></div>
     </div>
@@ -255,7 +260,7 @@ footer b{color:#fff}
 <section id="gallery">
   <div class="wrap">
     <h2>Как у нас</h2>
-    <p class="sub">Светлый зал с мягкими диванами, барная стойка, детская комната и витрина с продукцией ЭкоНивы.</p>
+    <p class="sub">Светлый зал с мягкими диванами, барная стойка, детская комната и витрина с продукцией <span class="ek">Эко<b>Н</b>ивы</span>.</p>
     <div class="gallery">
       <img src="img/2gis/p9.jpg" alt="Вход в кафе ЭкоНива" loading="lazy">
       <img src="img/2gis/p3.jpg" alt="Завтрак: блины и чай" loading="lazy">
@@ -265,7 +270,7 @@ footer b{color:#fff}
     </div>
     <div class="reviews">
       <div class="rev"><p>«Замечательное кафе для всей семьи: комфортно и старшему поколению, и молодым, и детям. Обычно в кафе вареники невкусные, а тут они были очень вкусные и сытные»</p><b>Дильбар Г.</b><small>2ГИС, июль 2026</small></div>
-      <div class="rev"><p>«Кухня особенно хороша, придём ещё точно, понравился кофе на молоке ЭкоНивы, персонал вежливый»</p><b>Фёдор Г.</b><small>2ГИС, октябрь 2026</small></div>
+      <div class="rev"><p>«Кухня особенно хороша, придём ещё точно, понравился кофе на молоке <span class="ek">Эко<b>Н</b>ивы</span>, персонал вежливый»</p><b>Фёдор Г.</b><small>2ГИС, октябрь 2026</small></div>
       <div class="rev"><p>«Решили отмечать важное событие для нашей семьи именно здесь и не пожалели. Обслуживание на высоте, накрыли на стол, как и планировали. По стоимости вышло не так дорого»</p><b>Анастасия С.</b><small>2ГИС, июль 2026</small></div>
     </div>
     <p style="margin-top:24px"><a class="score" href="https://2gis.ru/bugulma/firm/70000001113181100/tab/reviews" target="_blank" rel="noopener"><span class="st">★★★★★</span> 5,0 в 2ГИС · 14 оценок</a></p>
@@ -295,7 +300,7 @@ footer b{color:#fff}
       <label for="t">Повод</label>
       <select id="t"><option>Просто посидеть</option><option>День рождения</option><option>Детский праздник</option><option>Корпоратив</option><option>Другое</option></select>
       <button class="btn" type="submit">Отправить заявку</button>
-      <small>Нажимая кнопку, вы соглашаетесь на обработку персональных данных <span class="todo">ссылка на политику ЭкоНивы</span></small>
+      <small>Нажимая кнопку, вы соглашаетесь на обработку персональных данных <span class="todo">ссылка на политику <span class="ek">Эко<b>Н</b>ивы</span></span></small>
     </form>
   </div>
 </section>
@@ -318,7 +323,7 @@ footer b{color:#fff}
 
 <footer>
   <div class="wrap">
-    <div><b>Кафе ЭкоНива</b> · Бугульма, ул. Ломоносова, 4<br>Часть сети компании <a href="https://www.ekoniva-moloko.com/" target="_blank" rel="noopener">ЭкоНива</a></div>
+    <div><b>Кафе <span class="ek">Эко<b>Н</b>ива</span></b> · Бугульма, ул. Ломоносова, 4<br>Часть сети компании <a href="https://www.ekoniva-moloko.com/" target="_blank" rel="noopener"><span class="ek">Эко<b>Н</b>ива</span></a></div>
     <div>Оператор: <span class="todo">юрлицо, ИНН — уточнить</span><br>Политика конфиденциальности <span class="todo">ссылка</span></div>
   </div>
 </footer>
